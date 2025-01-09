@@ -42,6 +42,26 @@ const weapons = [
 ];
 
 
+// Monster attributes
+const monsters = [
+    {
+      name: "slime",
+      level: 2,
+      health: 15
+    },
+    {
+      name: "fanged beast",
+      level: 8,
+      health: 60
+    },
+    {
+      name: "dragon",
+      level: 20,
+      health: 300
+    }
+  ];
+
+
 // UI displays based on player location
 const locations = [
     {
@@ -61,7 +81,39 @@ const locations = [
         button_text: ["Fight slime", "Fight fanged beast", "Go to town square"],
         button_function: [fightSlime, fightBeast, goTown],
         message_text: "You're in the cave and see some monsters."
-    }
+    },
+    {
+		name: "fight",
+		button_text: ["Attack", "Dodge", "Run"],
+		button_function: [attack, dodge, goTown],
+		message_text: "You are fighting a monster."
+	},
+    {
+		name: "kill monster",
+		button_text: ["Go to town square", "Go to town square", "Go to town square"],
+		"button functions": [goTown, goTown, goTown],
+		text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.'
+	},
+	{
+		name: "lose",
+		button_text: ["REPLAY?", "REPLAY?", "REPLAY?"],
+		button_function: [restart, restart, restart],
+		text: "You die. ☠️"
+	},
+	{
+		name: "win",
+		button_text: ["REPLAY?", "REPLAY?", "REPLAY?"],
+		button_function: [restart, restart, restart],
+		text: "You defeat the dragon! YOU WIN THE GAME! 🎉"
+    },
+    /*
+	{
+		name: "easter egg",
+		button_text: ["2", "8", "Go to town square?"],
+		button_function: [pickTwo, pickEight, goTown],
+		text: "You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!"
+	}
+        */
 ];
 
 
@@ -74,6 +126,7 @@ button3.onclick = fightDragon;
 // Update UI based on location
 function update(location)
 {
+    monsterStatsText.style.display = "none";
     message.innerText = location.message_text;
 
     button1.innerText = location.button_text[0];
@@ -89,9 +142,7 @@ function update(location)
 
 // functions to change locations
 function goTown() { update(locations[0]); }
-
 function goStore() { update(locations[1]); }
-
 function goCave() { update(locations[2]); }
 
 
@@ -151,18 +202,81 @@ function sellWeapon()
     {
         message.innerText = "Don't sell your only weapon!" 
     }
-
 }
 
-// to-be implemented
-function fightBeast(){
-
+// Dragon battles
+function fightSlime()
+{
+    fighting = 0;
+    goFight();
 }
-function fightSlime(){
-
+function fightBeast()
+{
+    fighting = 1;
+    goFight();
 }
+
 function fightDragon()
 {
-    console.log("Fighting dragon");
+    fighting = 2;
+    goFight();
 }
 
+function goFight()
+{
+    update(locations[3]);
+    monsterHealth = monsters[fighting].health;
+    monsterStatsText.style.display = "block";
+    monsterNameText.innerText = monsters[fighting].name;
+    monsterHealthText.innerText = monsterHealth;
+}
+
+function attack()
+{
+    message.innerText = "The " + monsters[fighting].name + " attacks";
+    health -= monsters[fighting].level;
+    message.innerText += "You attacked with your " + weapons[currentWeapon].name;
+    monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
+    healthText.innerText = health;
+    monsterHealthText.innerText = monsterHealth;
+    if(health <= 0)
+    {
+        lose();
+    }
+    else if (monsterHealth <= 0)
+    {
+        fighting === 2 ? winGame() : defeatMonster();
+    }
+
+}
+
+function dodge()
+{
+    message.innerText = "Dodged attack from" + monsters[fighting].name;
+}
+
+function defeatMonster()
+{
+    gold += Math.floor(monsters[fighting].level * 6.7);
+    xp += monsters[fighting].level;
+    goldText.innerText = gold;
+    xpText.innerText = xp;
+    update(locations[4]);
+}
+
+function lose() { update(locations[5]); }
+
+function winGame() { update(locations[6]); }
+
+function restart() 
+{
+	xp = 0;
+	health = 100;
+	gold = 50;
+	currentWeapon = 0;
+	inventory = ["stick"];
+	goldText.innerText = gold;
+	healthText.innerText = health;
+	xpText.innerText = xp;
+	goTown();
+}
