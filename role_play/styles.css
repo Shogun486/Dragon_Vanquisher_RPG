@@ -46,6 +46,28 @@ body {
   margin-right: 40px;
 }
 
+#healthpack {
+  display:none;
+  width: 100px;
+  height: 100px;
+  position:fixed; bottom: 300px; right:600px;
+  transform:rotate(25deg);
+}
+
+#upgrade {
+  display:none;
+  width: 100px;
+  height: 100px;
+  position:fixed; bottom: 300px; right:280px;
+}
+
+#conv1 {
+  display:none;
+  width: 250px;
+  height: auto;
+  position:fixed; bottom: 420px; right:30px;
+}
+
 #game {
   float: left;
   text-align: center;

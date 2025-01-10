@@ -17,21 +17,25 @@ const monsterStatsText = document.querySelector("#monsterStats");
 const monsterNameText = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
 const seller = document.querySelector("#seller");
+const healthPack = document.querySelector("#healthpack");
+const upgrade = document.querySelector("#upgrade");
+const conv1 = document.querySelector("#conv1");
+
+
+
 
 
 button1.onclick = goStore;
-
 function goStore()
 {
     document.body.style.backgroundImage = "url(./images/store.jpg)";
     document.body.style.backgroundSize = "1320px";
     document.body.style.backgroundPositionY = "-8%";
     document.body.style.backgroundPositionX = "230%";
-
-
-
     seller.style.display = "inline";
-    hero.style.marginLeft = "0%";
+    healthPack.style.display = "block";
+    upgrade.style.display = "block";
+    conv1.style.display = "block";
 
 
 }
