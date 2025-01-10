@@ -20,8 +20,7 @@ const seller = document.querySelector("#seller");
 const healthPack = document.querySelector("#healthpack");
 const upgrade = document.querySelector("#upgrade");
 const conv1 = document.querySelector("#conv1");
-
-
+const next = document.querySelector("#next");
 
 
 
@@ -36,6 +35,9 @@ function goStore()
     healthPack.style.display = "block";
     upgrade.style.display = "block";
     conv1.style.display = "block";
+    next.style.display = "inline";
+    next.style.animation = "disappear 8s";
+    message.innerText = "\n This is the village store.\n\nRecover your health. \nUpgrade your sword. \n\nBut remember . . .  paradise comes at a cost.";
 
 
 }

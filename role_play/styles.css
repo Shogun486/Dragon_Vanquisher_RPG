@@ -6,6 +6,10 @@ body {
   margin: 0%;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 #button1 {
   font-family:fantasy;
   font-size: larger;
@@ -29,6 +33,7 @@ body {
   background-color: black;
   color: white;
   padding: 10px;
+  height: 210px;
 }
 
 #hero {
@@ -56,9 +61,16 @@ body {
 
 #upgrade {
   display:none;
-  width: 100px;
-  height: 100px;
-  position:fixed; bottom: 300px; right:280px;
+  width: auto;
+  height: 250px;
+  position:fixed; bottom: 160px; right:200px;
+}
+
+#next {
+  display:none;
+  width: auto;
+  height: 250px;
+  position: fixed; bottom: 20px; right:1220px;
 }
 
 #conv1 {
@@ -68,11 +80,16 @@ body {
   position:fixed; bottom: 420px; right:30px;
 }
 
+@keyframes disappear {
+  from {opacity: 0;}
+  to {opacity: 2;}
+}
+
 #game {
   float: left;
   text-align: center;
-  max-width: 800px;
-  height: 320px;
+  width: 480px;
+  height: 325px;
   background-color:darkslategray;
   margin: 0%;
 
