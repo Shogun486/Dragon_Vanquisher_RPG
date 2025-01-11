@@ -10,12 +10,18 @@ button:hover {
   cursor: pointer;
 }
 
+button {
+  height: 40px;
+}
+
 #button1 {
+  display: none;
   font-family:fantasy;
   font-size: larger;
   background-color:burlywood;
   float: left;
   margin-top: 7px;
+  margin-bottom: 7px;
 }
 
 #button2 {
@@ -24,7 +30,6 @@ button:hover {
   background-color:red;
   float: right;
   margin-top: 7px;
-
 }
 
 #text {
@@ -38,46 +43,54 @@ button:hover {
 
 #hero {
   width: 300px;
-  height: 300px;
-  object-position: 30px -20px;
-}
-
-#dragon {
-  display:none;
-  width: 300px;
-  height: 300px;
-  object-position: 30px -20px;
+  height: auto;
+  position: fixed;
+  left: 500px;
+  top: 18px;
 }
 
 #seller {
   display: none;
   width: 300px;
-  height: 300px;
-  object-position: 30px -20px;
-  float: right;
-  margin-right: 40px;
+  height: auto;
+  position: fixed;
+  right: 8px;
+  top: 18px;
+}
+
+#dragon {
+  display: none;
+  width: 500px;
+  height: 400px;
+  position: fixed;
 }
 
 #healthpack {
   display:none;
   width: 100px;
   height: 100px;
-  position:fixed; bottom: 300px; right:600px;
+  position:fixed; 
+  bottom: 300px; 
+  right:600px;
   transform:rotate(25deg);
 }
 
 #upgrader {
-  display:none;
+  display: none;
   width: auto;
   height: 250px;
-  position:fixed; bottom: 160px; right:200px;
+  position:fixed; 
+  bottom: 160px; 
+  right:200px;
 }
 
 #upgrade1 {
   display:none;
   width: auto;
   height: 100px;
-  position:fixed; bottom: 0px; right:630px;
+  position:fixed; 
+  bottom: 0px; 
+  right:630px;
 }
 
 #upgrade1:hover {
@@ -89,21 +102,45 @@ button:hover {
   display:none;
   width: auto;
   height: 250px;
-  position: fixed; bottom: 20px; right:1220px;
+  position: fixed; 
+  top: 182px; 
+  right:1230px;
 }
 
 #conv1 {
   display:none;
   width: 250px;
   height: auto;
-  position:fixed; bottom: 420px; right:30px;
+  position:fixed; 
+  bottom: 420px; 
+  right:30px;
+}
+
+#conv2 {
+  display:none;
+  width: 250px;
+  height: auto;
+  position:fixed; 
+  top: 150px; 
+  right:190px;
+}
+
+#conv3 {
+  display:none;
+  width: 250px;
+  height: auto;
+  position:fixed; 
+  bottom: 420px; 
+  right:30px;
 }
 
 #arrow1{
   display:none;
   width: auto;
   height: 190px;
-  position:fixed; bottom: 210px; left:550px;
+  position:fixed; 
+  bottom: 210px; 
+  left:550px;
   transform:rotate(-20deg);
 
 }
@@ -112,7 +149,9 @@ button:hover {
   display:none;
   width: auto;
   height: 250px;
-  position:fixed; bottom: 60px; right:440px;
+  position:fixed; 
+  bottom: 60px; 
+  right:440px;
   transform:rotate(-30deg);
 
 }
@@ -126,10 +165,9 @@ button:hover {
   float: left;
   text-align: center;
   width: 480px;
-  height: 325px;
+  height: 335px;
   background-color:darkslategray;
   margin: 0%;
-
 }
 
 #monsterStats {
@@ -161,4 +199,21 @@ button:hover {
 
 .stat3 {
   color: gold;
+}
+
+#black-box {
+  width: 50px;
+  height: 50px;
+  animation-name: diagonal;
+  animation-duration: 2s;
+}
+
+/*
+@keyframes diagonal {
+  from { right: 0px; top: 80px;}
+  to { right: 300px; top: 1000px; }
+}*/
+
+@keyframes diagonal {
+  to { transform: translateX(100%) translateY(20%); }
 }
