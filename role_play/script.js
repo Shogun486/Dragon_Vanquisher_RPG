@@ -1,3 +1,4 @@
+
 // Variable declarations
 let health = 100;
 let monsterHealth = 100;
@@ -27,13 +28,13 @@ const next = document.querySelector("#next");
 const arrow1 = document.querySelector("#arrow1");
 const arrow2 = document.querySelector("#arrow2");
 const dragon = document.querySelector("#dragon");
-const blackBox = document.querySelector("#black-box");
+const fireball = document.querySelector("#fireball");
 
 
 
 button1.onclick = goStore;
 button2.onclick = playScene;
-blackBox.style.display = "none";
+fireball.style.display = "none";
 let ctr = 0;
 
 function playScene()
@@ -65,13 +66,17 @@ function playScene()
         }
         else if (ctr == 1)
         {
-            blackBox.style.display = "inline";
+            fireball.style.display = "inline";
             conv2.style.display = "none";
             conv3.style.display = "none";
+            next.style.display = "none";
         }
     }
 
 }
+
+
+
 
 function upgradeWeapon()
 {
