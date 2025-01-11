@@ -21,10 +21,15 @@ const healthPack = document.querySelector("#healthpack");
 const upgrade = document.querySelector("#upgrade");
 const conv1 = document.querySelector("#conv1");
 const next = document.querySelector("#next");
+const arrow1 = document.querySelector("#arrow1");
+const arrow2 = document.querySelector("#arrow2");
 
 
 
 button1.onclick = goStore;
+next.onclick = showPrices; 
+
+
 function goStore()
 {
     document.body.style.backgroundImage = "url(./images/store.jpg)";
@@ -38,9 +43,19 @@ function goStore()
     next.style.display = "inline";
     next.style.animation = "disappear 8s";
     message.innerText = "\n This is the village store.\n\nRecover your health. \nUpgrade your sword. \n\nBut remember . . .  paradise comes at a cost.";
-
-
 }
+
+function showPrices()
+{   
+    next.style.display = "none";
+    arrow2.style.display = "inline";
+    message.innerText = "\n\n\nUpgrade your weapon!"
+
+    
+}
+
+
+
 
 
 

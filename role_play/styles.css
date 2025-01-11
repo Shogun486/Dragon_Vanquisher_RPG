@@ -67,6 +67,7 @@ button:hover {
 }
 
 #next {
+  cursor: pointer;
   display:none;
   width: auto;
   height: 250px;
@@ -78,6 +79,24 @@ button:hover {
   width: 250px;
   height: auto;
   position:fixed; bottom: 420px; right:30px;
+}
+
+#arrow1{
+  display:none;
+  width: auto;
+  height: 150px;
+  position:fixed; bottom: 210px; left:550px;
+  transform:rotate(-20deg);
+
+}
+
+#arrow2{
+  display:none;
+  width: auto;
+  height: 200px;
+  position:fixed; bottom: 80px; right:440px;
+  transform:rotate(-30deg);
+
 }
 
 @keyframes disappear {
