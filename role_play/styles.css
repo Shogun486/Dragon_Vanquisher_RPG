@@ -42,6 +42,13 @@ button:hover {
   object-position: 30px -20px;
 }
 
+#dragon {
+  display:none;
+  width: 300px;
+  height: 300px;
+  object-position: 30px -20px;
+}
+
 #seller {
   display: none;
   width: 300px;
@@ -59,11 +66,22 @@ button:hover {
   transform:rotate(25deg);
 }
 
-#upgrade {
+#upgrader {
   display:none;
   width: auto;
   height: 250px;
   position:fixed; bottom: 160px; right:200px;
+}
+
+#upgrade1 {
+  display:none;
+  width: auto;
+  height: 100px;
+  position:fixed; bottom: 0px; right:630px;
+}
+
+#upgrade1:hover {
+  cursor: pointer;
 }
 
 #next {
@@ -84,7 +102,7 @@ button:hover {
 #arrow1{
   display:none;
   width: auto;
-  height: 150px;
+  height: 190px;
   position:fixed; bottom: 210px; left:550px;
   transform:rotate(-20deg);
 
@@ -93,8 +111,8 @@ button:hover {
 #arrow2{
   display:none;
   width: auto;
-  height: 200px;
-  position:fixed; bottom: 80px; right:440px;
+  height: 250px;
+  position:fixed; bottom: 60px; right:440px;
   transform:rotate(-30deg);
 
 }
