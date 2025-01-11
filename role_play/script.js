@@ -12,7 +12,7 @@ const enemyDamage = 10;
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const message = document.querySelector("#text");
-const healthText = document.querySelector("#health");
+const healthText = document.querySelector("#healthText");
 const goldText = document.querySelector("#goldText");
 const monsterStatsText = document.querySelector("#monsterStats");
 const monsterNameText = document.querySelector("#monsterName");
@@ -31,18 +31,22 @@ const dragon = document.querySelector("#dragon");
 const fireball = document.querySelector("#fireball");
 
 
-
+// Starting screen
 button1.onclick = goStore;
 button2.onclick = playScene;
-fireball.style.display = "none";
 let ctr = 0;
 
+
+// Initial encounter with dragon
 function playScene()
 {
     document.body.style.backgroundImage = "url(./images/dungeon.jpg)";
     button2.style.display = "none";
-    next.style.display = "inline";
-    next.style.animation = "disappear 8s";
+    if(ctr == 0)
+    {
+        next.style.display = "inline";
+        next.style.animation = "fade 4s";
+    }
 
     hero.style.left = "200px";
     hero.style.top = "500px";
@@ -54,45 +58,50 @@ function playScene()
     message.innerText = "\nThe dragon has spoken. \n\nYou must show no fear. \n\nThe village is counting on you.";
 
     next.onclick = () => {
-        next.style.animation = "disappear infinite 1.5s";
 
         if(ctr === 0)
         {
+            next.style.animation = "fade infinite 1.5s";
             conv2.style.display = "none";
             conv3.style.display = "inline";
             conv3.style.left = "250px";
             conv3.style.bottom = "280px";
             ctr++;
         }
-        else if (ctr == 1)
+        else if (ctr === 1)
         {
             fireball.style.display = "inline";
             conv2.style.display = "none";
             conv3.style.display = "none";
+            message.innerText = "\nYou've taken damage. \n\nYou must retreat!\n\n Visit the store to regain your health!";
+            health -= 60;
+            healthText.innerText = health;
+            arrow2.style.display = "inline";
+            arrow2.style.bottom = "700px"; 
+            arrow2.style.left = "180px"; 
+            arrow2.style.height = "60px";
+            arrow2.style.transform = "rotate(-135deg)";
+            button1.style.display = "inline";
             next.style.display = "none";
+            ctr++;
         }
+        
     }
-
 }
 
 
-
-
+// Weapon upgrade tutorial
 function upgradeWeapon()
 {
     gold -= 30;
     goldText.innerText = gold;
     message.innerText = "\n\n\nGold exchanged!\n\nSword upgraded to Level 2!\n\n";
     upgrade1.style.display = "none";
-    arrow2.style.bottom = "650px"; 
-    arrow2.style.left = "180px"; 
-    arrow2.style.height = "115px";
-    arrow2.style.transform = "rotate(-50deg)";
     conv1.style.display = "none";
-
-
 }
 
+
+// Store scene with seller
 function goStore()
 {
     document.body.style.backgroundImage = "url(./images/store.jpg)";
@@ -100,6 +109,11 @@ function goStore()
     document.body.style.backgroundPositionY = "-8%";
     document.body.style.backgroundPositionX = "230%";
     dragon.style.display = "none";
+    fireball.style.display = "none";
+    hero.style.width = "300px";
+    hero.style.left = "500px";
+    hero.style.top = "18px";
+    arrow2.style.display = "none";
     button1.style.display = "none";
     button2.style.display = "none";
     seller.style.display = "inline";
@@ -108,17 +122,23 @@ function goStore()
     conv1.style.display = "block";
     next.onclick = showPrices; 
     next.style.display = "inline";
-    next.style.animation = "disappear 8s";
+    next.style.animation = "fade 8s";
     message.innerText = "\n This is the village store.\n\nHere, you can recover your health \nand upgrade your sword. \n\nBut remember . . .  paradise comes at a cost.";
 
 }
 
+
+// Store prices shown
 function showPrices()
 {   
     next.style.display = "none";
     arrow2.style.display = "inline";
     message.innerText = "\n\n\nUpgrade your weapon!\n\nYou have 50 gold!"
     upgrade1.style.display = "inline";
+    arrow2.style.bottom = "650px"; 
+    arrow2.style.left = "180px"; 
+    arrow2.style.height = "115px";
+    arrow2.style.transform = "rotate(-50deg)";
     upgrade1.onclick = upgradeWeapon;  
 }
 

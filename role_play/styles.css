@@ -156,7 +156,7 @@ button {
 
 }
 
-@keyframes disappear {
+@keyframes fade {
   from {opacity: 0;}
   to {opacity: 2;}
 }
@@ -209,8 +209,9 @@ button {
   top:200px;
   width: 300px;
   height: auto;
-  animation-name: diagonal ;
+  animation-name: diagonal;
   animation-duration: 1s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes diagonal {
