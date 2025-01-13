@@ -29,6 +29,7 @@ const arrow1 = document.querySelector("#arrow1");
 const arrow2 = document.querySelector("#arrow2");
 const dragon = document.querySelector("#dragon");
 const fireball = document.querySelector("#fireball");
+const upgrade_health = document.querySelector("#upgrade_health");
 
 
 // Starting screen
@@ -58,7 +59,6 @@ function playScene()
     message.innerText = "\nThe dragon has spoken. \n\nYou must show no fear. \n\nThe village is counting on you.";
 
     next.onclick = () => {
-
         if(ctr === 0)
         {
             next.style.animation = "fade infinite 1.5s";
@@ -84,20 +84,8 @@ function playScene()
             button1.style.display = "inline";
             next.style.display = "none";
             ctr++;
-        }
-        
+        }    
     }
-}
-
-
-// Weapon upgrade tutorial
-function upgradeWeapon()
-{
-    gold -= 30;
-    goldText.innerText = gold;
-    message.innerText = "\n\n\nGold exchanged!\n\nSword upgraded to Level 2!\n\n";
-    upgrade1.style.display = "none";
-    conv1.style.display = "none";
 }
 
 
@@ -120,7 +108,7 @@ function goStore()
     healthPack.style.display = "block";
     upgrader.style.display = "block";
     conv1.style.display = "block";
-    next.onclick = showPrices; 
+    next.onclick = setUpStore; 
     next.style.display = "inline";
     next.style.animation = "fade 8s";
     message.innerText = "\n This is the village store.\n\nHere, you can recover your health \nand upgrade your sword. \n\nBut remember . . .  paradise comes at a cost.";
@@ -128,24 +116,49 @@ function goStore()
 }
 
 
-// Store prices shown
-function showPrices()
+// Store scene helper function
+function setUpStore()
 {   
     next.style.display = "none";
     arrow2.style.display = "inline";
-    message.innerText = "\n\n\nUpgrade your weapon!\n\nYou have 50 gold!"
+    message.innerText = "\n\n\nUpgrade your weapon!\n\nYou have enough gold!"
     upgrade1.style.display = "inline";
     arrow2.style.bottom = "650px"; 
     arrow2.style.left = "180px"; 
     arrow2.style.height = "115px";
     arrow2.style.transform = "rotate(-50deg)";
-    upgrade1.onclick = upgradeWeapon;  
+
+    arrow1.style.display = "inline";
+    arrow1.style.bottom = "100px"; 
+    arrow1.style.left = "800px"; 
+    arrow1.style.height = "160px";
+    arrow1.style.transform = "rotate(-50deg)";
+
+    upgrade1.onclick = () => {
+        gold -= 30;
+        goldText.innerText = gold;
+        message.innerText = "\nGold exchanged!\n\nSword upgraded!\n\nNow regain your health.";
+        upgrade1.style.display = "none";
+        conv1.style.display = "none";
+        arrow2.style.display = "none";
+        arrow1.style.left = "535px";
+        arrow1.style.bottom = "175px";
+        upgrade_health.style.display = "inline";
+        upgrade_health.onclick = () => {
+            health += 60;
+            healthText.innerText = health;
+            arrow1.style.display = "none";
+            upgrade_health.style.display = "none";
+            message.innerText = "\n\nHealth replenished!"
+            next.style.display = "inline";
+            next.style.animation = "fade 4s";
+            next.onclick = episodeDone;
+        }
+    } 
 }
 
-
-
-
-
-
-
-
+// to-implement: free player from tutorial
+function episodeDone()
+{
+    message.innerText = "TEST";
+}

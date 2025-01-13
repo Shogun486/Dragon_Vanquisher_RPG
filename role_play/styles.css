@@ -90,10 +90,23 @@ button {
   height: 100px;
   position:fixed; 
   bottom: 0px; 
-  right:630px;
+  right:500px;
 }
 
 #upgrade1:hover {
+  cursor: pointer;
+}
+
+#upgrade_health {
+  display:none;
+  width: auto;
+  height: 150px;
+  position:fixed; 
+  bottom: 0px; 
+  right:800px;
+}
+
+#upgrade_health:hover {
   cursor: pointer;
 }
 
