@@ -65,6 +65,17 @@ button {
   position: fixed;
 }
 
+#rip {
+  display: none;
+  width: 300px;
+  height: auto;
+  right: 100px;
+  top: 350px;
+  position: fixed;
+  transform:rotate(15deg);
+
+}
+
 #healthpack {
   display:none;
   width: 100px;
@@ -110,6 +121,19 @@ button {
   cursor: pointer;
 }
 
+#attack_btn {
+  display:none;
+  width: auto;
+  height: 150px;
+  position:fixed; 
+  bottom: 0px; 
+  right:800px;
+}
+
+#attack_btn:hover {
+  cursor: pointer;
+}
+
 #next {
   cursor: pointer;
   display:none;
@@ -120,7 +144,7 @@ button {
   right:1230px;
 }
 
-#conv1 {
+#conv1, #conv4 {
   display:none;
   width: 250px;
   height: auto;
@@ -147,6 +171,15 @@ button {
   right:30px;
 }
 
+#conv5 {
+  display:none;
+  width: 300px;
+  height: auto;
+  position:fixed; 
+  bottom: 280px; 
+  left:200px;
+}
+
 #arrow1{
   display:none;
   width: auto;
@@ -167,11 +200,6 @@ button {
   right:440px;
   transform:rotate(-30deg);
 
-}
-
-@keyframes fade {
-  from {opacity: 0;}
-  to {opacity: 2;}
 }
 
 #game {
@@ -222,11 +250,33 @@ button {
   top:200px;
   width: 300px;
   height: auto;
-  animation-name: diagonal;
+  animation-name: dragonAttack;
   animation-duration: 1s;
   animation-fill-mode: forwards;
 }
 
-@keyframes diagonal {
+#sword {
+  position:fixed;
+  display: none;
+  rotate: 0deg;
+  left:300px;
+  bottom:200px;
+  width: 200px;
+  height: auto;
+  animation-name: heroAttack;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes dragonAttack {
   to { transform: translateX(100%) translateY(150%); }
+}
+
+@keyframes heroAttack {
+  to { transform: translateX(300%) translateY(-20%); }
+}
+
+@keyframes fade {
+  from {opacity: 0;}
+  to {opacity: 2;}
 }

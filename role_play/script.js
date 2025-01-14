@@ -11,6 +11,7 @@ const enemyDamage = 10;
 // HTML elements selection 
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
+const attack_button = document.querySelector("#attack_btn");
 const message = document.querySelector("#text");
 const healthText = document.querySelector("#healthText");
 const goldText = document.querySelector("#goldText");
@@ -24,12 +25,17 @@ const upgrade1 = document.querySelector("#upgrade1");
 const conv1 = document.querySelector("#conv1");
 const conv2 = document.querySelector("#conv2");
 const conv3 = document.querySelector("#conv3");
+const conv4 = document.querySelector("#conv4");
+const conv5 = document.querySelector("#conv5");
 const next = document.querySelector("#next");
 const arrow1 = document.querySelector("#arrow1");
 const arrow2 = document.querySelector("#arrow2");
 const dragon = document.querySelector("#dragon");
 const fireball = document.querySelector("#fireball");
+const sword = document.querySelector("#sword");
 const upgrade_health = document.querySelector("#upgrade_health");
+const rip = document.querySelector("#rip");
+
 
 
 // Starting screen
@@ -160,5 +166,47 @@ function setUpStore()
 // to-implement: free player from tutorial
 function episodeDone()
 {
-    message.innerText = "TEST";
+    document.body.style.backgroundImage = "url(./images/dungeon.jpg)";
+    document.body.style.backgroundSize = "1440px";
+    document.body.style.backgroundPositionX = "120%";
+    document.body.style.backgroundPositionY = "0%";
+    button2.style.display = "none";
+    next.style.display = "none";
+    seller.style.display = "none";
+    healthPack.style.display = "none";
+    upgrader.style.display = "none";
+    hero.style.left = "200px";
+    hero.style.top = "500px";
+    hero.style.width = "330px";
+    dragon.style.display = "inline";
+    dragon.style.right = "50px";
+    dragon.style.top = "200px";
+    message.innerText = "\n\nAttack with all your might!";
+    attack_button.style.display = "inline";
+    attack_button.style.animation = "fade infinite 1s";
+    ctr = 0;
+    attack_button.onclick = () => {
+        sword.style.display = "inline";
+        attack_button.style.display = "none";
+        conv4.style.display = "inline";
+        next.style.display = "inline";
+
+        next.onclick = () => { 
+            ctr++;
+            conv4.style.display = "none";
+            conv5.style.display = "inline"; 
+            rip.style.display = "inline";
+            dragon.style.display = "none";
+            sword.style.display = "none";
+            message.innerText = "\n\nYou have defeated Jaris, but . . .\n\nwhat army is he talking about?"
+            if(ctr > 0)
+            {
+                message.innerText = "implement";
+                next.style.animation = "fade infinite 2s";
+            }
+        }
+    }
+    
+
+    
 }
