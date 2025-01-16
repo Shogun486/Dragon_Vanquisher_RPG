@@ -65,6 +65,25 @@ button {
   position: fixed;
 }
 
+#minion1 {
+  display: none;
+  width: 130px;
+  height: auto;
+  right: 440px;
+  top: 250px;
+  position: fixed;
+}
+
+#minion2 {
+  display: none;
+  width: 200px;
+  height: auto;
+  left: 580px;
+  top: 10px;
+  transform:rotate(-45deg);
+  position: fixed;
+}
+
 #rip {
   display: none;
   width: 300px;

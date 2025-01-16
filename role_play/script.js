@@ -31,10 +31,14 @@ const next = document.querySelector("#next");
 const arrow1 = document.querySelector("#arrow1");
 const arrow2 = document.querySelector("#arrow2");
 const dragon = document.querySelector("#dragon");
+const minion1 = document.querySelector("#minion1");
+const minion2 = document.querySelector("#minion2");
 const fireball = document.querySelector("#fireball");
 const sword = document.querySelector("#sword");
 const upgrade_health = document.querySelector("#upgrade_health");
 const rip = document.querySelector("#rip");
+
+
 
 
 
@@ -163,7 +167,8 @@ function setUpStore()
     } 
 }
 
-// to-implement: free player from tutorial
+
+// finish tutorial phase and lead player to game map
 function episodeDone()
 {
     document.body.style.backgroundImage = "url(./images/dungeon.jpg)";
@@ -192,21 +197,40 @@ function episodeDone()
         next.style.display = "inline";
 
         next.onclick = () => { 
-            ctr++;
-            conv4.style.display = "none";
-            conv5.style.display = "inline"; 
-            rip.style.display = "inline";
-            dragon.style.display = "none";
-            sword.style.display = "none";
-            message.innerText = "\n\nYou have defeated Jaris, but . . .\n\nwhat army is he talking about?"
-            if(ctr > 0)
+            if(ctr == 0)
             {
-                message.innerText = "implement";
+                conv4.style.display = "none";
+                conv5.style.display = "inline"; 
+                rip.style.display = "inline";
+                dragon.style.display = "none";
+                sword.style.display = "none";
+                message.innerText = "\n\nYou have defeated Jaris, but . . .\n\nwhat army is he talking about?"
+            }
+            else if(ctr == 1)
+            {
+                showMap();
                 next.style.animation = "fade infinite 2s";
             }
+            ctr++;
         }
     }
-    
-
-    
 }
+
+
+function showMap()
+{
+    message.innerText = "\nIs it over . . . \n\nor is it just the beginning?";
+    next.onclick = () => { 
+        message.innerText = "\nWe're receving reports of Jaris'\n\n creatures all over the village!\n\nYou must save them!";
+        document.body.style.backgroundImage = "url(./images/map.png)";
+        document.body.style.backgroundSize = "1480px";
+        document.body.style.backgroundPositionX = "30%";
+        hero.style.display = "none";
+        rip.style.display = "none";
+        conv5.style.display = "none";
+        minion1.style.display = "inline";
+        minion2.style.display = "inline";
+
+    }
+}
+
