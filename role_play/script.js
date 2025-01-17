@@ -248,6 +248,7 @@ function showMap()
 }
 
 
+// Easily add creatures of your own and any attributes in this array
 let env = [];
 
 
