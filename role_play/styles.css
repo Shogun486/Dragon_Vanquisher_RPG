@@ -1,3 +1,4 @@
+/* Body */
 body {
   background-image: url("./images/village.jpg");
   background-size: 1440px;
@@ -6,6 +7,8 @@ body {
   margin: 0%;
 }
 
+
+/* Buttons */
 button:hover {
   cursor: pointer;
 }
@@ -32,15 +35,60 @@ button {
   margin-top: 7px;
 }
 
-#text {
-  font-family: fantasy;
-  font-size:larger;
-  background-color: black;
-  color: white;
-  padding: 10px;
-  height: 210px;
+#attack_btn {
+  display:none;
+  width: auto;
+  height: 150px;
+  position:fixed; 
+  bottom: 0px; 
+  right:800px;
 }
 
+#attack_btn:hover {
+  cursor: pointer;
+}
+
+#visit_btn1 {
+  display:none;
+  width: auto;
+  height: 100px;
+  position:fixed; 
+  top: 220px; 
+  right: 270px;
+  transform: rotate(20deg);
+}
+
+#visit_btn1:hover {
+  cursor: pointer;
+}
+
+#visit_btn2 {
+  display:none;
+  width: auto;
+  height: 80px;
+  position:fixed; 
+  top: 150px; 
+  left: 650px;
+  transform: rotate(-10deg);
+  z-index: 3;
+}
+
+#visit_btn2:hover {
+  cursor: pointer;
+}
+
+#next {
+  cursor: pointer;
+  display:none;
+  width: auto;
+  height: 250px;
+  position: fixed; 
+  top: 182px; 
+  right:1230px;
+}
+
+
+/* Characters & Assets */
 #hero {
   width: 300px;
   height: auto;
@@ -114,7 +162,7 @@ button {
   right:200px;
 }
 
-#upgrade1 {
+#weapon_upgrade1 {
   display:none;
   width: auto;
   height: 100px;
@@ -123,7 +171,7 @@ button {
   right:500px;
 }
 
-#upgrade1:hover {
+#weapon_upgrade1:hover {
   cursor: pointer;
 }
 
@@ -140,58 +188,54 @@ button {
   cursor: pointer;
 }
 
-#attack_btn {
+#arrow1 {
   display:none;
   width: auto;
-  height: 150px;
+  height: 190px;
   position:fixed; 
-  bottom: 0px; 
-  right:800px;
+  bottom: 210px; 
+  left:550px;
+  transform:rotate(-20deg);
 }
 
-#attack_btn:hover {
-  cursor: pointer;
-}
-
-#visit_btn1 {
-  display:none;
-  width: auto;
-  height: 100px;
-  position:fixed; 
-  top: 220px; 
-  right: 270px;
-  transform: rotate(20deg);
-}
-
-#visit_btn1:hover {
-  cursor: pointer;
-}
-
-#visit_btn2 {
-  display:none;
-  width: auto;
-  height: 80px;
-  position:fixed; 
-  top: 150px; 
-  left: 650px;
-  transform: rotate(-10deg);
-  z-index: 3;
-}
-
-#visit_btn2:hover {
-  cursor: pointer;
-}
-
-#next {
-  cursor: pointer;
+#arrow2 {
   display:none;
   width: auto;
   height: 250px;
-  position: fixed; 
-  top: 182px; 
-  right:1230px;
+  position:fixed; 
+  bottom: 60px; 
+  right:440px;
+  transform:rotate(-30deg);
 }
 
+#fireball {
+  position:fixed;
+  display: none;
+  rotate: 90deg;
+  right:300px;
+  top:200px;
+  width: 300px;
+  height: auto;
+  animation-name: dragonAttack;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+#sword {
+  position:fixed;
+  display: none;
+  rotate: 0deg;
+  left:300px;
+  bottom:200px;
+  width: 200px;
+  height: auto;
+  animation-name: heroAttack;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+
+/* Dialogue */
 #conv1, #conv4 {
   display:none;
   width: 250px;
@@ -228,30 +272,9 @@ button {
   left:200px;
 }
 
-#arrow1{
-  display:none;
-  width: auto;
-  height: 190px;
-  position:fixed; 
-  bottom: 210px; 
-  left:550px;
-  transform:rotate(-20deg);
 
-}
-
-#arrow2{
-  display:none;
-  width: auto;
-  height: 250px;
-  position:fixed; 
-  bottom: 60px; 
-  right:440px;
-  transform:rotate(-30deg);
-
-}
-
-#game {
-  float: left;
+/* Player and villain panels */
+#leftPanel, #rightPanel {
   text-align: center;
   width: 480px;
   height: 335px;
@@ -259,12 +282,13 @@ button {
   margin: 0%;
 }
 
-#monsterStats {
-  display: none;
-  border: 1px black solid;
+#text {
+  font-family: fantasy;
+  font-size:larger;
+  background-color: black;
   color: white;
-  padding: 5px;
-  background-color: red;
+  padding: 10px;
+  height: 210px;
 }
 
 #stats {
@@ -291,32 +315,7 @@ button {
 }
 
 
-#fireball {
-  position:fixed;
-  display: none;
-  rotate: 90deg;
-  right:300px;
-  top:200px;
-  width: 300px;
-  height: auto;
-  animation-name: dragonAttack;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
-
-#sword {
-  position:fixed;
-  display: none;
-  rotate: 0deg;
-  left:300px;
-  bottom:200px;
-  width: 200px;
-  height: auto;
-  animation-name: heroAttack;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-}
-
+/* Animations */
 @keyframes dragonAttack {
   to { transform: translateX(100%) translateY(150%); }
 }

@@ -1,4 +1,3 @@
-
 // Variable declarations
 let health = 100;
 let monsterHealth = 100;
@@ -14,31 +13,32 @@ const button2 = document.querySelector("#button2");
 const attack_button = document.querySelector("#attack_btn");
 const visit_button1 = document.querySelector("#visit_btn1");
 const visit_button2 = document.querySelector("#visit_btn2");
+const next = document.querySelector("#next");
+const arrow1 = document.querySelector("#arrow1");
+const arrow2 = document.querySelector("#arrow2");
 const message = document.querySelector("#text");
-const healthText = document.querySelector("#healthText");
 const goldText = document.querySelector("#goldText");
-const monsterStatsText = document.querySelector("#monsterStats");
-const monsterNameText = document.querySelector("#monsterName");
-const monsterHealthText = document.querySelector("#monsterHealth");
-const seller = document.querySelector("#seller");
+const healthText = document.querySelector("#healthText");
+const villainHealth = document.querySelector("#villainHealth");
 const healthPack = document.querySelector("#healthpack");
-const upgrader = document.querySelector("#upgrader");
-const upgrade1 = document.querySelector("#upgrade1");
+const upgrade_health = document.querySelector("#upgrade_health");
+const weapon_upgrade1 = document.querySelector("#weapon_upgrade1");
 const conv1 = document.querySelector("#conv1");
 const conv2 = document.querySelector("#conv2");
 const conv3 = document.querySelector("#conv3");
 const conv4 = document.querySelector("#conv4");
 const conv5 = document.querySelector("#conv5");
-const next = document.querySelector("#next");
-const arrow1 = document.querySelector("#arrow1");
-const arrow2 = document.querySelector("#arrow2");
-const dragon = document.querySelector("#dragon");
+const hero = document.querySelector("#hero");
+const seller = document.querySelector("#seller");
+const upgrader = document.querySelector("#upgrader");
+const dragon = document.querySelector("#dragon"); // this monster is part of the tutorial only
 const minion1 = document.querySelector("#minion1");
 const minion2 = document.querySelector("#minion2");
 const fireball = document.querySelector("#fireball");
 const sword = document.querySelector("#sword");
-const upgrade_health = document.querySelector("#upgrade_health");
 const rip = document.querySelector("#rip");
+const rightPanel = document.querySelector("#rightPanel");
+
 
 
 // Starting screen
@@ -58,6 +58,8 @@ function playScene()
         next.style.animation = "fade 4s";
     }
 
+    rightPanel.style.display = "inline";
+    
     hero.style.left = "200px";
     hero.style.top = "500px";
     hero.style.width = "330px";
@@ -69,6 +71,7 @@ function playScene()
 
     next.onclick = () => 
     {
+        rightPanel.style.display = "none";
         if(ctr === 0)
         {
             next.style.animation = "fade infinite 1.5s";
@@ -106,17 +109,17 @@ function goStore()
     document.body.style.backgroundSize = "1320px";
     document.body.style.backgroundPositionY = "-8%";
     document.body.style.backgroundPositionX = "230%";
-    dragon.style.display = "none";
-    fireball.style.display = "none";
     hero.style.width = "300px";
     hero.style.left = "500px";
     hero.style.top = "18px";
+    dragon.style.display = "none";
+    fireball.style.display = "none";
     arrow2.style.display = "none";
     button1.style.display = "none";
     button2.style.display = "none";
     seller.style.display = "inline";
-    healthPack.style.display = "block";
     upgrader.style.display = "block";
+    healthPack.style.display = "block";
     conv1.style.display = "block";
     next.onclick = setUpStore; 
     next.style.display = "inline";
@@ -130,38 +133,38 @@ function setUpStore()
 {   
     next.style.display = "none";
     message.innerText = "\n\n\nUpgrade your weapon!\n\nYou have enough gold!"
-    upgrade1.style.display = "inline";
+    weapon_upgrade1.style.display = "inline";
     arrow2.style.display = "inline";
     arrow2.style.bottom = "650px"; 
     arrow2.style.left = "180px"; 
     arrow2.style.height = "115px";
     arrow2.style.transform = "rotate(-50deg)";
-
     arrow1.style.display = "inline";
     arrow1.style.bottom = "100px"; 
     arrow1.style.left = "800px"; 
     arrow1.style.height = "160px";
     arrow1.style.transform = "rotate(-50deg)";
 
-    upgrade1.onclick = () => 
+    weapon_upgrade1.onclick = () => 
     {
         gold -= 30;
         goldText.innerText = gold;
         message.innerText = "\nGold exchanged!\n\nSword upgraded!\n\nNow regain your health.";
-        upgrade1.style.display = "none";
+        weapon_upgrade1.style.display = "none";
+        upgrade_health.style.display = "inline";
         conv1.style.display = "none";
         arrow2.style.display = "none";
         arrow1.style.left = "535px";
         arrow1.style.bottom = "175px";
-        upgrade_health.style.display = "inline";
+
         upgrade_health.onclick = () => 
         {
+            upgrade_health.style.display = "none";
             health += 60;
             healthText.innerText = health;
             gold -= 20;
             goldText.innerText = gold;
             arrow1.style.display = "none";
-            upgrade_health.style.display = "none";
             message.innerText = "\n\nHealth replenished!"
             next.style.display = "inline";
             next.style.animation = "fade 4s";
@@ -180,8 +183,9 @@ function episodeDone()
     document.body.style.backgroundPositionY = "0%";
     next.style.display = "none";
     seller.style.display = "none";
-    healthPack.style.display = "none";
     upgrader.style.display = "none";
+    healthPack.style.display = "none";
+    
     hero.style.left = "200px";
     hero.style.top = "500px";
     hero.style.width = "330px";
@@ -192,19 +196,21 @@ function episodeDone()
     attack_button.style.display = "inline";
     attack_button.style.animation = "fade infinite 1s";
     button2.style.display = "none";
+    rightPanel.style.display = "inline";
 
     ctr = 0;
     attack_button.onclick = () =>
     {
         attack_button.style.display = "none";
+        next.style.display = "inline";
         sword.style.display = "inline";
         conv4.style.display = "inline";
-        next.style.display = "inline";
 
         next.onclick = () => 
         { 
             if(ctr == 0)
             {
+                villainHealth.innerText = "0";
                 conv4.style.display = "none";
                 conv5.style.display = "inline"; 
                 rip.style.display = "inline";
@@ -243,7 +249,6 @@ function showMap()
 
         visit_button1.onclick = () => { loadScene("lava"); }
         visit_button2.onclick = () => { loadScene("cave"); }
- 
     }
 }
 

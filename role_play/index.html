@@ -8,62 +8,53 @@
 </head>
 
 <body>
-<div id="game">
+
+<!-- Player stats on top left -->
+<div id="leftPanel" style="float: left;">
   <div id="stats">
     <span class="stat1"><strong>Health: <span id="healthText">100</span></strong></span>
     <span class="stat2">/</strong></span>
     <span class="stat3"><strong>Gold: <span id="goldText">50</span></strong></span>
-  </div>
-  
-  <div id="monsterStats">
-    <span class="stat">Monster Name: <strong><span id="monsterName"></span></strong></span>
-    <span class="stat">Health: <strong><span id="monsterHealth"></span></strong></span>
   </div>
   <div id="text">You are the Dragon Vanquisher. <br><br> Our village lives in fear from the deadly serpent Jaris. <br><br> The rules are simple. <br><br> Defeat Jaris with everything you've got. </div>
   <button id="button1">Visit Store</button>
   <button id="button2">Fight</button>
 </div>
 
-<!--Adding-->
-<div id="game" style="height: 60px; float:right ;background-color:rgb(174, 51, 51)">
+<!-- Monster stats on top right (shown during battle) -->
+<div id="rightPanel" style="display:none; height: 60px; float:right ;background-color:rgb(174, 51, 51)">
   <div id="stats">
-    <span class="stat1"><strong style="color:rgb(152, 202, 243)">Health: <span id="healthText">100</span></strong></span>
-  </div>
-  
-  <div id="monsterStats">
-    <span class="stat">Monster Name: <strong><span id="monsterName"></span></strong></span>
-    <span class="stat">Health: <strong><span id="monsterHealth"></span></strong></span>
+    <span class="stat1"><strong style="color:rgb(152, 202, 243)">Health: <span id="villainHealth">100</span></strong></span>
   </div>
   <div style = "height: 30px;" id="text">Jaris</div>
 </div>
 
-
-
 <br><br>
+
+<!-- Image assets -->
 <img id="hero" src="./images/hero.jpg">
-<img id="upgrader" src="./images/upgrader.png">
 <img id="seller" src="./images/seller.jpg">
+<img id="dragon" src="./images/dragon.png">
+<img id="minion1" src="./images/minion1.png">
+<img id="minion2" src="./images/minion2.png">
+<img id="upgrader" src="./images/upgrader.png">
 <img id="healthpack" src="./images/health_pack.png">
+<img id="upgrade_health" src="./images/upgrade_health.png">
+<img id="weapon_upgrade1" src="./images/weapon_upgrade1.png">
 <img id="next" src="./images/next.png">
 <img id="arrow1" src="./images/arrow.png">
 <img id="arrow2" src="./images/arrow.png">
-<img id="upgrade1" src="./images/weapon_upgrade1.png">
-<img id="dragon" src="./images/dragon.png">
 <img id="conv1" src="./images/conv1.jpg">
 <img id="conv2" src="./images/conv2.png">
 <img id="conv3" src="./images/conv3.png">
 <img id="conv4" src="./images/conv4.png">
 <img id="conv5" src="./images/conv5.png">
 <img id="fireball" src="./images/fireball.png">
-<img id="upgrade_health" src="./images/upgrade_health.png">
 <img id="sword" src="./images/sword.png">
+<img id="rip" src="./images/rip.png">
 <img id="attack_btn" src="./images/attack_btn.png">
 <img id="visit_btn1" src="./images/visit_btn.png">
 <img id="visit_btn2" src="./images/visit_btn.png">
-<img id="rip" src="./images/rip.png">
-<img id="minion1" src="./images/minion1.png">
-<img id="minion2" src="./images/minion2.png">
-
 
 <script  src="script.js"></script>
 </body>
