@@ -153,6 +153,35 @@ button {
   cursor: pointer;
 }
 
+#visit_btn1 {
+  display:none;
+  width: auto;
+  height: 100px;
+  position:fixed; 
+  top: 220px; 
+  right: 270px;
+  transform: rotate(20deg);
+}
+
+#visit_btn1:hover {
+  cursor: pointer;
+}
+
+#visit_btn2 {
+  display:none;
+  width: auto;
+  height: 80px;
+  position:fixed; 
+  top: 150px; 
+  left: 650px;
+  transform: rotate(-10deg);
+  z-index: 3;
+}
+
+#visit_btn2:hover {
+  cursor: pointer;
+}
+
 #next {
   cursor: pointer;
   display:none;
@@ -260,6 +289,7 @@ button {
 .stat3 {
   color: gold;
 }
+
 
 #fireball {
   position:fixed;

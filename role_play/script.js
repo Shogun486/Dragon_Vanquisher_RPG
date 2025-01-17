@@ -12,6 +12,8 @@ const enemyDamage = 10;
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const attack_button = document.querySelector("#attack_btn");
+const visit_button1 = document.querySelector("#visit_btn1");
+const visit_button2 = document.querySelector("#visit_btn2");
 const message = document.querySelector("#text");
 const healthText = document.querySelector("#healthText");
 const goldText = document.querySelector("#goldText");
@@ -37,9 +39,6 @@ const fireball = document.querySelector("#fireball");
 const sword = document.querySelector("#sword");
 const upgrade_health = document.querySelector("#upgrade_health");
 const rip = document.querySelector("#rip");
-
-
-
 
 
 // Starting screen
@@ -68,7 +67,8 @@ function playScene()
     conv2.style.display = "inline";
     message.innerText = "\nThe dragon has spoken. \n\nYou must show no fear. \n\nThe village is counting on you.";
 
-    next.onclick = () => {
+    next.onclick = () => 
+    {
         if(ctr === 0)
         {
             next.style.animation = "fade infinite 1.5s";
@@ -122,7 +122,6 @@ function goStore()
     next.style.display = "inline";
     next.style.animation = "fade 8s";
     message.innerText = "\n This is the village store.\n\nHere, you can recover your health \nand upgrade your sword. \n\nBut remember . . .  paradise comes at a cost.";
-
 }
 
 
@@ -130,9 +129,9 @@ function goStore()
 function setUpStore()
 {   
     next.style.display = "none";
-    arrow2.style.display = "inline";
     message.innerText = "\n\n\nUpgrade your weapon!\n\nYou have enough gold!"
     upgrade1.style.display = "inline";
+    arrow2.style.display = "inline";
     arrow2.style.bottom = "650px"; 
     arrow2.style.left = "180px"; 
     arrow2.style.height = "115px";
@@ -144,7 +143,8 @@ function setUpStore()
     arrow1.style.height = "160px";
     arrow1.style.transform = "rotate(-50deg)";
 
-    upgrade1.onclick = () => {
+    upgrade1.onclick = () => 
+    {
         gold -= 30;
         goldText.innerText = gold;
         message.innerText = "\nGold exchanged!\n\nSword upgraded!\n\nNow regain your health.";
@@ -154,9 +154,12 @@ function setUpStore()
         arrow1.style.left = "535px";
         arrow1.style.bottom = "175px";
         upgrade_health.style.display = "inline";
-        upgrade_health.onclick = () => {
+        upgrade_health.onclick = () => 
+        {
             health += 60;
             healthText.innerText = health;
+            gold -= 20;
+            goldText.innerText = gold;
             arrow1.style.display = "none";
             upgrade_health.style.display = "none";
             message.innerText = "\n\nHealth replenished!"
@@ -168,14 +171,13 @@ function setUpStore()
 }
 
 
-// finish tutorial phase and lead player to game map
+// Finish tutorial phase and lead player to game map
 function episodeDone()
 {
     document.body.style.backgroundImage = "url(./images/dungeon.jpg)";
     document.body.style.backgroundSize = "1440px";
     document.body.style.backgroundPositionX = "120%";
     document.body.style.backgroundPositionY = "0%";
-    button2.style.display = "none";
     next.style.display = "none";
     seller.style.display = "none";
     healthPack.style.display = "none";
@@ -189,14 +191,18 @@ function episodeDone()
     message.innerText = "\n\nAttack with all your might!";
     attack_button.style.display = "inline";
     attack_button.style.animation = "fade infinite 1s";
+    button2.style.display = "none";
+
     ctr = 0;
-    attack_button.onclick = () => {
-        sword.style.display = "inline";
+    attack_button.onclick = () =>
+    {
         attack_button.style.display = "none";
+        sword.style.display = "inline";
         conv4.style.display = "inline";
         next.style.display = "inline";
 
-        next.onclick = () => { 
+        next.onclick = () => 
+        { 
             if(ctr == 0)
             {
                 conv4.style.display = "none";
@@ -208,8 +214,8 @@ function episodeDone()
             }
             else if(ctr == 1)
             {
-                showMap();
                 next.style.animation = "fade infinite 2s";
+                showMap();
             }
             ctr++;
         }
@@ -220,7 +226,8 @@ function episodeDone()
 function showMap()
 {
     message.innerText = "\nIs it over . . . \n\nor is it just the beginning?";
-    next.onclick = () => { 
+    next.onclick = () => 
+    { 
         message.innerText = "\nWe're receving reports of Jaris'\n\n creatures all over the village!\n\nYou must save them!";
         document.body.style.backgroundImage = "url(./images/map.png)";
         document.body.style.backgroundSize = "1480px";
@@ -230,7 +237,38 @@ function showMap()
         conv5.style.display = "none";
         minion1.style.display = "inline";
         minion2.style.display = "inline";
+        next.style.display = "none";
+        visit_button1.style.display = "inline";
+        visit_button2.style.display = "inline";
 
+        visit_button1.onclick = () => { loadScene("lava"); }
+        visit_button2.onclick = () => { loadScene("cave"); }
+ 
     }
 }
+
+
+let env = [];
+
+
+// Displays changing stats of current villains throughout gameplay
+function loadScene(scene)
+{
+    visit_button1.style.display = "none";
+    visit_button2.style.display = "none";
+    if(scene === "lava")
+    {
+        document.body.style.backgroundImage = "url(./images/lava_chamber.jpg)";
+        minion2.style.display = "none";
+    }
+    else if(scene === "cave")
+    {
+        document.body.style.backgroundImage = "url(./images/skull_cave.jpg)";
+        minion1.style.display = "none";
+    }
+}
+
+
+
+
 
