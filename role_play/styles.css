@@ -223,6 +223,19 @@ button {
   animation-fill-mode: forwards;
 }
 
+#spear {
+  position:fixed;
+  display: none;
+  rotate: 270deg;
+  right:300px;
+  top:200px;
+  width: 300px;
+  height: auto;
+  animation-name: spearAttack;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
 #sword {
   position:fixed;
   display: none;
@@ -320,6 +333,10 @@ button {
 /* Animations */
 @keyframes dragonAttack {
   to { transform: translateX(100%) translateY(150%); }
+}
+
+@keyframes spearAttack {
+  to { transform: translateX(-100%) translateY(-150%); }
 }
 
 @keyframes heroAttack {

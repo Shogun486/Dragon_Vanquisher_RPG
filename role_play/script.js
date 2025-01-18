@@ -36,14 +36,15 @@ const dragon = document.querySelector("#dragon"); // this monster is part of the
 const minion1 = document.querySelector("#minion1");
 const minion2 = document.querySelector("#minion2");
 const fireball = document.querySelector("#fireball");
+const spear = document.querySelector("#spear");
 const sword = document.querySelector("#sword");
 const rip = document.querySelector("#rip");
 const rightPanel = document.querySelector("#rightPanel");
-let attackClicks = 1; // change to 1 when testing outside of tutorial, else set to 0
+let attackClicks = 0; // change to 1 when testing outside of tutorial, else set to 0
 
-showMap();
+//showMap();
 
-/*
+
 // Starting screen
 button1.onclick = goStore;
 button2.onclick = playScene;
@@ -224,7 +225,8 @@ function episodeDone()
     }
     
 }
-    */
+    
+    
     
 
 
@@ -252,15 +254,15 @@ function showMap()
 // Easily add creatures of your own and any attributes in this array
 let env = [
     {
-        name: "Flame Sorcerer",
+        name: "Flamejade",
         url: "url(./images/lava_chamber.jpg)",
-        projectile: "Fire",
+        projectile: "lava",
         health: 70
     },
     {
         name: "Wolfman",
         url: "url(./images/skull_cave.jpg)",
-        projectile: "Vomit",
+        projectile: "a spear",
         health: 90
     }
 ];
@@ -279,7 +281,6 @@ attack_button.onclick = () =>
     else // clicked outside of tutorial
     {
         reduceEnemyHealth();
-        //villainAttack(i);
     }
     next.style.display = "inline";
     next.style.animation = "fade 1s infinite";
@@ -327,15 +328,18 @@ function loadScene(scene)
 
     next.onclick = () => 
     {
-        villainName.innerText += "implement";
-
+        villainAttack(i);
     }
 }
     
 
 function villainAttack(monster_i)
 {
-    villainName.innerText += env[i].projectile;
+    if(monster_i === 1)
+    {
+        spear.style.display = "inline";
+    }
+    villainName.innerText += " threw " + env[i].projectile;
 }
 
 
