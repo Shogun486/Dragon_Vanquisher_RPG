@@ -39,11 +39,11 @@ const fireball = document.querySelector("#fireball");
 const sword = document.querySelector("#sword");
 const rip = document.querySelector("#rip");
 const rightPanel = document.querySelector("#rightPanel");
-attackClicks = 0;
+let attackClicks = 1; // change to 1 when testing outside of tutorial, else set to 0
 
-//showMap();
+showMap();
 
-
+/*
 // Starting screen
 button1.onclick = goStore;
 button2.onclick = playScene;
@@ -205,7 +205,6 @@ function episodeDone()
     { 
         if(ctr == 0)
         {
-            villainHealth.innerText = "0";
             conv4.style.display = "none";
             conv5.style.display = "inline"; 
             rip.style.display = "inline";
@@ -213,17 +212,21 @@ function episodeDone()
             sword.style.display = "none";
             message.innerText = "\n\nYou have defeated Jaris, but . . .\n\nwhat army is he talking about?";
             villainName.innerText += " (R.I.P.)";
+            ctr++;
         }
         else if(ctr == 1)
         {
             next.style.animation = "fade infinite 2s";
             rightPanel.style.display = "none";
+            ctr++;
             showMap();
         }
-        ctr++;
     }
     
 }
+    */
+    
+
 
 // Player free to choose which enemies to fight
 function showMap()
@@ -251,34 +254,41 @@ let env = [
     {
         name: "Flame Sorcerer",
         url: "url(./images/lava_chamber.jpg)",
+        projectile: "Fire",
         health: 70
     },
     {
         name: "Wolfman",
         url: "url(./images/skull_cave.jpg)",
+        projectile: "Vomit",
         health: 90
     }
 ];
 
 
 // Weapon animation
-attack_button.onclick = () => {    
-    
+attack_button.onclick = () => 
+{  
+
+    attack_button.style.display = "none";
     if(attackClicks == 0) // clicked during tutorial mode
     {
-        attack_button.style.display = "none";
-        next.style.display = "inline";
         conv4.style.display = "inline";
+        villainHealth.innerText = "0";
     }
-    else
+    else // clicked outside of tutorial
     {
-
+        reduceEnemyHealth();
+        //villainAttack(i);
     }
+    next.style.display = "inline";
+    next.style.animation = "fade 1s infinite";
     sword.style.display = "inline";
     attackClicks++;
 }
 
 
+let i;
 // Displays changing stats of current villains throughout gameplay
 function loadScene(scene)
 {
@@ -290,7 +300,6 @@ function loadScene(scene)
     hero.style.top = "500px";
     hero.style.width = "330px";
     hero.style.display = "inline";
-    let i;
     if(scene === "lava")
     {
         i = 0;
@@ -311,11 +320,33 @@ function loadScene(scene)
         minion2.style.transform = "rotate(0deg)"
 
     }
-    villainName.innerText = env[i].name;
+    let name = env[i].name;
+    villainName.innerText = name;
     villainHealth.innerText = env[i].health;
+    message.innerText = "\n\nThis is " + name;
+
+    next.onclick = () => 
+    {
+        villainName.innerText += "implement";
+
+    }
+}
+    
+
+function villainAttack(monster_i)
+{
+    villainName.innerText += env[i].projectile;
 }
 
 
+// Damage to enemy is not a constant amount
+function reduceEnemyHealth()
+{
+    let min = 5;
+    let max = Number(villainHealth.innerText);
+    let reduction = Math.floor(Math.random() * (max - min + 1)) + min;   
+    villainHealth.innerText = max - reduction;
+}
 
 
 
