@@ -20,6 +20,7 @@ const message = document.querySelector("#text");
 const goldText = document.querySelector("#goldText");
 const healthText = document.querySelector("#healthText");
 const villainHealth = document.querySelector("#villainHealth");
+const villainName = document.querySelector("#villainName");
 const healthPack = document.querySelector("#healthpack");
 const upgrade_health = document.querySelector("#upgrade_health");
 const weapon_upgrade1 = document.querySelector("#weapon_upgrade1");
@@ -38,7 +39,9 @@ const fireball = document.querySelector("#fireball");
 const sword = document.querySelector("#sword");
 const rip = document.querySelector("#rip");
 const rightPanel = document.querySelector("#rightPanel");
+attackClicks = 0;
 
+//showMap();
 
 
 // Starting screen
@@ -185,7 +188,7 @@ function episodeDone()
     seller.style.display = "none";
     upgrader.style.display = "none";
     healthPack.style.display = "none";
-    
+
     hero.style.left = "200px";
     hero.style.top = "500px";
     hero.style.width = "330px";
@@ -194,84 +197,122 @@ function episodeDone()
     dragon.style.top = "200px";
     message.innerText = "\n\nAttack with all your might!";
     attack_button.style.display = "inline";
-    attack_button.style.animation = "fade infinite 1s";
     button2.style.display = "none";
     rightPanel.style.display = "inline";
 
     ctr = 0;
-    attack_button.onclick = () =>
-    {
-        attack_button.style.display = "none";
-        next.style.display = "inline";
-        sword.style.display = "inline";
-        conv4.style.display = "inline";
-
-        next.onclick = () => 
-        { 
-            if(ctr == 0)
-            {
-                villainHealth.innerText = "0";
-                conv4.style.display = "none";
-                conv5.style.display = "inline"; 
-                rip.style.display = "inline";
-                dragon.style.display = "none";
-                sword.style.display = "none";
-                message.innerText = "\n\nYou have defeated Jaris, but . . .\n\nwhat army is he talking about?"
-            }
-            else if(ctr == 1)
-            {
-                next.style.animation = "fade infinite 2s";
-                showMap();
-            }
-            ctr++;
-        }
-    }
-}
-
-
-function showMap()
-{
-    message.innerText = "\nIs it over . . . \n\nor is it just the beginning?";
     next.onclick = () => 
     { 
-        message.innerText = "\nWe're receving reports of Jaris'\n\n creatures all over the village!\n\nYou must save them!";
-        document.body.style.backgroundImage = "url(./images/map.png)";
-        document.body.style.backgroundSize = "1480px";
-        document.body.style.backgroundPositionX = "30%";
-        hero.style.display = "none";
-        rip.style.display = "none";
-        conv5.style.display = "none";
-        minion1.style.display = "inline";
-        minion2.style.display = "inline";
-        next.style.display = "none";
-        visit_button1.style.display = "inline";
-        visit_button2.style.display = "inline";
-
-        visit_button1.onclick = () => { loadScene("lava"); }
-        visit_button2.onclick = () => { loadScene("cave"); }
+        if(ctr == 0)
+        {
+            villainHealth.innerText = "0";
+            conv4.style.display = "none";
+            conv5.style.display = "inline"; 
+            rip.style.display = "inline";
+            dragon.style.display = "none";
+            sword.style.display = "none";
+            message.innerText = "\n\nYou have defeated Jaris, but . . .\n\nwhat army is he talking about?";
+            villainName.innerText += " (R.I.P.)";
+        }
+        else if(ctr == 1)
+        {
+            next.style.animation = "fade infinite 2s";
+            rightPanel.style.display = "none";
+            showMap();
+        }
+        ctr++;
     }
+    
+}
+
+// Player free to choose which enemies to fight
+function showMap()
+{
+    message.innerText = "\nWe're receving reports of Jaris'\n\n creatures all over the village!\n\nYou must defeat them!";
+    document.body.style.backgroundImage = "url(./images/map.png)";
+    document.body.style.backgroundSize = "1480px";
+    document.body.style.backgroundPositionX = "30%";
+    hero.style.display = "none";
+    rip.style.display = "none";
+    conv5.style.display = "none";
+    minion1.style.display = "inline";
+    minion2.style.display = "inline";
+    next.style.display = "none";
+    visit_button1.style.display = "inline";
+    visit_button2.style.display = "inline";
+
+    visit_button1.onclick = () => { loadScene("lava"); }
+    visit_button2.onclick = () => { loadScene("cave"); }
 }
 
 
 // Easily add creatures of your own and any attributes in this array
-let env = [];
+let env = [
+    {
+        name: "Flame Sorcerer",
+        url: "url(./images/lava_chamber.jpg)",
+        health: 70
+    },
+    {
+        name: "Wolfman",
+        url: "url(./images/skull_cave.jpg)",
+        health: 90
+    }
+];
+
+
+// Weapon animation
+attack_button.onclick = () => {    
+    
+    if(attackClicks == 0) // clicked during tutorial mode
+    {
+        attack_button.style.display = "none";
+        next.style.display = "inline";
+        conv4.style.display = "inline";
+    }
+    else
+    {
+
+    }
+    sword.style.display = "inline";
+    attackClicks++;
+}
 
 
 // Displays changing stats of current villains throughout gameplay
 function loadScene(scene)
 {
+    attack_button.style.display = "inline";
     visit_button1.style.display = "none";
     visit_button2.style.display = "none";
+    rightPanel.style.display = "inline";
+    hero.style.left = "200px";
+    hero.style.top = "500px";
+    hero.style.width = "330px";
+    hero.style.display = "inline";
+    let i;
     if(scene === "lava")
     {
-        document.body.style.backgroundImage = "url(./images/lava_chamber.jpg)";
+        i = 0;
+        document.body.style.backgroundImage = env[i].url;
         minion2.style.display = "none";
+        minion1.style.top = "400px";
+        minion1.style.width = "140px";
+
     }
     else if(scene === "cave")
     {
-        document.body.style.backgroundImage = "url(./images/skull_cave.jpg)";
+        i = 1;
+        document.body.style.backgroundImage = env[i].url;
         minion1.style.display = "none";
+        minion2.style.top = "400px";
+        minion2.style.left = "1100px";
+        minion2.style.width = "300px";
+        minion2.style.transform = "rotate(0deg)"
+
     }
+    villainName.innerText = env[i].name;
+    villainHealth.innerText = env[i].health;
 }
 
 

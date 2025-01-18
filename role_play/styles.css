@@ -42,6 +42,7 @@ button {
   position:fixed; 
   bottom: 0px; 
   right:800px;
+  animation:fade infinite 1s
 }
 
 #attack_btn:hover {
@@ -56,6 +57,7 @@ button {
   top: 220px; 
   right: 270px;
   transform: rotate(20deg);
+  z-index: -1;
 }
 
 #visit_btn1:hover {
@@ -282,7 +284,7 @@ button {
   margin: 0%;
 }
 
-#text {
+#text, #villainName {
   font-family: fantasy;
   font-size:larger;
   background-color: black;
