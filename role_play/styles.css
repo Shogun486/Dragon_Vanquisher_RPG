@@ -35,6 +35,15 @@ button {
   margin-top: 7px;
 }
 
+#button3 {
+  display: none;
+  font-family:fantasy;
+  font-size: larger;
+  background-color:rgb(80, 191, 255);
+  float: right;
+  margin-top: 7px;
+}
+
 #attack_btn {
   display:none;
   width: auto;

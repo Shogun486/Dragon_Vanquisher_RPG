@@ -10,6 +10,7 @@ const enemyDamage = 10;
 // HTML elements selection 
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
+const button3 = document.querySelector("#button3");
 const attack_button = document.querySelector("#attack_btn");
 const visit_button1 = document.querySelector("#visit_btn1");
 const visit_button2 = document.querySelector("#visit_btn2");
@@ -121,7 +122,7 @@ function startStoreTutorial()
     next.style.animation = "fade 8s";
     message.innerText = "\n This is the village store.\n\nHere, you can recover your health \nand upgrade your sword. \n\nBut remember . . .  paradise comes at a cost.";
 }
-    
+  
 
 
 function setupStore()
@@ -131,6 +132,7 @@ function setupStore()
     document.body.style.backgroundSize = "1320px";
     document.body.style.backgroundPositionY = "-8%";
     document.body.style.backgroundPositionX = "230%";
+    hero.style.display = "inline";
     hero.style.width = "300px";
     hero.style.left = "500px";
     hero.style.top = "18px";
@@ -233,27 +235,7 @@ function episodeDone()
     }
     
 }
-    
 
-// Player free to choose which enemies to fight
-function showMap()
-{
-    message.innerText = "\nWe're receving reports of Jaris'\n\n creatures all over the village!\n\nYou must defeat them!";
-    document.body.style.backgroundImage = "url(./images/map.png)";
-    document.body.style.backgroundSize = "1480px";
-    document.body.style.backgroundPositionX = "30%";
-    hero.style.display = "none";
-    rip.style.display = "none";
-    conv5.style.display = "none";
-    minion1.style.display = "inline";
-    minion2.style.display = "inline";
-    next.style.display = "none";
-    visit_button1.style.display = "inline";
-    visit_button2.style.display = "inline";
-
-    visit_button1.onclick = () => { loadScene("lava"); }
-    visit_button2.onclick = () => { loadScene("cave"); }
-}
 
 
 // Add creatures and their attributes in this array
@@ -273,6 +255,51 @@ let env = [
         level: 6
     }
 ];
+
+
+// Player free to choose which enemies to fight
+function showMap()
+{
+    hideStore();
+    message.innerText = "\nWe're receving reports of Jaris'\n\n creatures all over the village!\n\nYou must defeat them!";
+    document.body.style.backgroundImage = "url(./images/map.png)";
+    document.body.style.backgroundSize = "1480px";
+    document.body.style.backgroundPositionX = "30%";
+    hero.style.display = "none";
+    rip.style.display = "none";
+    conv5.style.display = "none";
+    minion1.style.display = "inline";
+    minion1.style.width = '';
+    minion1.style.right = '';
+    minion1.style.top = '';
+    minion2.style.display = "inline";
+    minion2.style.width = '';
+    minion2.style.left = '';
+    minion2.style.top = '';
+    minion2.style.transform = '';
+
+
+    next.style.display = "none";
+    button3.style.display = "none";
+    visit_button1.style.display = "inline";
+    visit_button2.style.display = "inline";
+    button1.style.display = "inline";
+
+    button1.onclick = () => 
+    { 
+        minion1.style.display = "none";
+        minion2.style.display = "none";
+        visit_button1.style.display = "none";
+        visit_button2.style.display = "none";
+        button3.style.display = "inline";
+        setupStore(); 
+        button3.onclick = () => {
+            showMap();
+        }
+    }
+    visit_button1.onclick = () => { loadScene("lava"); }
+    visit_button2.onclick = () => { loadScene("cave"); }
+}
 
 
 // Player's weapon animation
@@ -335,6 +362,12 @@ function loadScene(scene)
     {
         hideBattleScene(i);
         setupStore();
+        message.innerText = "\n\nIf you have gold to give, \nyou're in luck!";
+        button3.style.display = "inline";
+        button3.onclick = () => {
+            showMap();
+        }
+        next.style.display = "none";
         minion1.style.display = "none";
     }
 
@@ -399,9 +432,11 @@ function villainAttack(monster_i)
 function reduceEnemyHealth()
 {
     let min = 5;
-    let max = Number(villainHealth.innerText);
+    let max = env[i].health;
     let reduction = Math.floor(Math.random() * (max - min + 1)) + min;   
-    villainHealth.innerText = Number(villainHealth.innerText) - reduction;
+    monsterHealth = Number(villainHealth.innerText) - reduction;
+    villainHealth.innerText = monsterHealth;
+    env[i].health = monsterHealth;
 }
 
 
@@ -415,6 +450,16 @@ function reducePlayerHealth()
     playerHealth = Number(healthText.innerText) - reduction;
     healthText.innerText = playerHealth;
     return playerHealth;
+}
+
+function hideStore()
+{
+    upgrader.style.display = "none";
+    seller.style.display = "none";
+    healthPack.style.display = "none";
+    weapon_upgrade1.style.display = "none";
+    upgrade_health.style.display = "none";
+    document.body.style.backgroundPositionY = "0%";
 }
 
 
