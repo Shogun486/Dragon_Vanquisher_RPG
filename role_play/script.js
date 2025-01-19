@@ -1,5 +1,5 @@
 // Variable declarations
-let health = 100;
+let playerHealth = 100;
 let monsterHealth = 100;
 let gold = 50;
 let weapons = ["bow & arrow"];
@@ -36,13 +36,12 @@ const dragon = document.querySelector("#dragon"); // this monster is part of the
 const minion1 = document.querySelector("#minion1");
 const minion2 = document.querySelector("#minion2");
 const fireball = document.querySelector("#fireball");
+const lava = document.querySelector("#lava");
 const spear = document.querySelector("#spear");
 const sword = document.querySelector("#sword");
 const rip = document.querySelector("#rip");
 const rightPanel = document.querySelector("#rightPanel");
 let attackClicks = 0; // change to 1 when testing outside of tutorial, else set to 0
-
-//showMap();
 
 
 // Starting screen
@@ -91,8 +90,8 @@ function playScene()
             conv2.style.display = "none";
             conv3.style.display = "none";
             message.innerText = "\nYou've taken damage. \n\nYou must retreat!\n\n Visit the store to regain your health!";
-            health -= 60;
-            healthText.innerText = health;
+            playerHealth -= 60;
+            healthText.innerText = playerHealth;
             arrow2.style.display = "inline";
             arrow2.style.bottom = "700px"; 
             arrow2.style.left = "180px"; 
@@ -164,8 +163,8 @@ function setUpStore()
         upgrade_health.onclick = () => 
         {
             upgrade_health.style.display = "none";
-            health += 60;
-            healthText.innerText = health;
+            playerHealth += 60;
+            healthText.innerText = playerHealth;
             gold -= 20;
             goldText.innerText = gold;
             arrow1.style.display = "none";
@@ -226,9 +225,6 @@ function episodeDone()
     
 }
     
-    
-    
-
 
 // Player free to choose which enemies to fight
 function showMap()
@@ -257,13 +253,15 @@ let env = [
         name: "Flamejade",
         url: "url(./images/lava_chamber.jpg)",
         projectile: "lava",
-        health: 70
+        health: 70,
+        level: 3
     },
     {
         name: "Wolfman",
         url: "url(./images/skull_cave.jpg)",
         projectile: "a spear",
-        health: 90
+        health: 90,
+        level: 6
     }
 ];
 
@@ -271,7 +269,6 @@ let env = [
 // Weapon animation
 attack_button.onclick = () => 
 {  
-
     attack_button.style.display = "none";
     if(attackClicks == 0) // clicked during tutorial mode
     {
@@ -280,6 +277,8 @@ attack_button.onclick = () =>
     }
     else // clicked outside of tutorial
     {
+        spear.style.display = "none";
+        lava.style.display = "none";
         reduceEnemyHealth();
     }
     next.style.display = "inline";
@@ -328,6 +327,8 @@ function loadScene(scene)
 
     next.onclick = () => 
     {
+        sword.style.display = "none";
+        next.style.display = "none";
         villainAttack(i);
     }
 }
@@ -335,11 +336,22 @@ function loadScene(scene)
 
 function villainAttack(monster_i)
 {
-    if(monster_i === 1)
+    if(monster_i === 0)
+    {
+        lava.style.display = "inline";
+        lava.style.width = "280px";
+        lava.style.height = "auto";
+    }
+    else if(monster_i === 1)
     {
         spear.style.display = "inline";
     }
+    
     villainName.innerText += " threw " + env[i].projectile;
+    attack_button.style.display = "inline";
+    playerHealth = reducePlayerHealth();
+    if(playerHealth <= 0)
+        message.innerText = "Defeated!";
 }
 
 
@@ -349,7 +361,19 @@ function reduceEnemyHealth()
     let min = 5;
     let max = Number(villainHealth.innerText);
     let reduction = Math.floor(Math.random() * (max - min + 1)) + min;   
-    villainHealth.innerText = max - reduction;
+    villainHealth.innerText = Number(villainHealth.innerText) - reduction;
+}
+
+// Damage to player varies based on current opponent's level
+function reducePlayerHealth()
+{
+    let level = env[i].level;
+    let min = 5;
+    let max = Number(healthText.innerText);
+    let reduction = level + Math.floor(Math.random() * (max - min + 1)) + min;   
+    playerHealth = Number(healthText.innerText) - reduction;
+    healthText.innerText = playerHealth;
+    return playerHealth;
 }
 
 

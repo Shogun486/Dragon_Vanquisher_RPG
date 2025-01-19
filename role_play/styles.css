@@ -210,9 +210,9 @@ button {
   transform:rotate(-30deg);
 }
 
-#fireball {
-  position:fixed;
+#fireball, #lava {
   display: none;
+  position:fixed;
   rotate: 90deg;
   right:300px;
   top:200px;
@@ -224,8 +224,8 @@ button {
 }
 
 #spear {
-  position:fixed;
   display: none;
+  position:fixed;
   rotate: 270deg;
   right:300px;
   top:200px;
