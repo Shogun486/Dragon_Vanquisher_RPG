@@ -1,26 +1,23 @@
-// Variable declarations
+// Player info
 let playerHealth = 100;
-let monsterHealth = 100;
 let gold = 50;
-let weapons = ["bow & arrow"];
-let weaponDamage = 15;
-const enemyDamage = 10;
 
 
 // HTML elements selection 
-const button1 = document.querySelector("#button1");
-const button2 = document.querySelector("#button2");
-const button3 = document.querySelector("#button3");
+const visitStore = document.querySelector("#button1");
+const startTutorial = document.querySelector("#button2");
+const visitMap = document.querySelector("#button3");
+const returnToFight = document.querySelector("#button4");
 const attack_button = document.querySelector("#attack_btn");
-const visit_button1 = document.querySelector("#visit_btn1");
-const visit_button2 = document.querySelector("#visit_btn2");
+const fightM1 = document.querySelector("#visit_btn1");
+const fightM2 = document.querySelector("#visit_btn2");
 const next = document.querySelector("#next");
 const arrow1 = document.querySelector("#arrow1");
 const arrow2 = document.querySelector("#arrow2");
 const message = document.querySelector("#text");
 const goldText = document.querySelector("#goldText");
 const healthText = document.querySelector("#healthText");
-const villainHealth = document.querySelector("#villainHealth");
+const villainHealthText = document.querySelector("#villainHealth");
 const villainName = document.querySelector("#villainName");
 const healthPack = document.querySelector("#healthpack");
 const upgrade_health = document.querySelector("#upgrade_health");
@@ -33,7 +30,7 @@ const conv5 = document.querySelector("#conv5");
 const hero = document.querySelector("#hero");
 const seller = document.querySelector("#seller");
 const upgrader = document.querySelector("#upgrader");
-const dragon = document.querySelector("#dragon"); // this monster is part of the tutorial only
+const dragon = document.querySelector("#dragon"); // dragon is part of the tutorial only
 const minion1 = document.querySelector("#minion1");
 const minion2 = document.querySelector("#minion2");
 const fireball = document.querySelector("#fireball");
@@ -42,21 +39,27 @@ const spear = document.querySelector("#spear");
 const sword = document.querySelector("#sword");
 const rip = document.querySelector("#rip");
 const rightPanel = document.querySelector("#rightPanel");
+
+
 let attackClicks = 0; // change to 1 when testing outside of tutorial, else set to 0
+let ctr = 0;
 
 //showMap();
 
+
+
 // Starting screen
-button1.onclick = startStoreTutorial;
-button2.onclick = playScene;
-let ctr = 0;
+startTutorial.style.display = "inline";
+startTutorial.onclick = playScene;
 
 
 // Initial encounter with dragon (part of tutorial)
 function playScene()
 {
     document.body.style.backgroundImage = "url(./images/dungeon.jpg)";
-    button2.style.display = "none";
+    startTutorial.style.display = "none";
+    visitStore.onclick = startStoreTutorial;
+
     if(ctr == 0)
     {
         next.style.display = "inline";
@@ -99,7 +102,7 @@ function playScene()
             arrow2.style.left = "180px"; 
             arrow2.style.height = "60px";
             arrow2.style.transform = "rotate(-135deg)";
-            button1.style.display = "inline";
+            visitStore.style.display = "inline";
             next.style.display = "none";
             ctr++;
         }    
@@ -114,20 +117,20 @@ function startStoreTutorial()
     dragon.style.display = "none";
     fireball.style.display = "none";
     arrow2.style.display = "none";
-    button1.style.display = "none";
-    button2.style.display = "none";
+    visitStore.style.display = "none";
+    startTutorial.style.display = "none";
     conv1.style.display = "block";
     next.onclick = storeTour; 
     next.style.display = "inline";
     next.style.animation = "fade 8s";
     message.innerText = "\n This is the village store.\n\nHere, you can recover your health \nand upgrade your sword. \n\nBut remember . . .  paradise comes at a cost.";
 }
-  
+ 
 
-
+// Show store scene
 function setupStore()
 {
-    button1.style.display = "none";
+    visitStore.style.display = "none";
     document.body.style.backgroundImage = "url(./images/store.jpg)";
     document.body.style.backgroundSize = "1320px";
     document.body.style.backgroundPositionY = "-8%";
@@ -142,7 +145,7 @@ function setupStore()
 }
 
 
-// Store scene helper function (part of tutorial scene)
+// Give tutorial on purchasing/upgrading items
 function storeTour()
 {   
     next.style.display = "none";
@@ -208,7 +211,7 @@ function episodeDone()
     dragon.style.top = "200px";
     message.innerText = "\n\nAttack with all your might!";
     attack_button.style.display = "inline";
-    button2.style.display = "none";
+    startTutorial.style.display = "none";
     rightPanel.style.display = "inline";
 
     ctr = 0;
@@ -237,7 +240,6 @@ function episodeDone()
 }
 
 
-
 // Add creatures and their attributes in this array
 let env = [
     {
@@ -257,6 +259,7 @@ let env = [
 ];
 
 
+let i = -1;
 // Player free to choose which enemies to fight
 function showMap()
 {
@@ -280,25 +283,23 @@ function showMap()
 
 
     next.style.display = "none";
-    button3.style.display = "none";
-    visit_button1.style.display = "inline";
-    visit_button2.style.display = "inline";
-    button1.style.display = "inline";
-
-    button1.onclick = () => 
+    visitMap.style.display = "none";
+    fightM1.style.display = "inline";
+    fightM2.style.display = "inline";
+    visitStore.style.display = "inline";
+    visitStore.onclick = () => 
     { 
         minion1.style.display = "none";
         minion2.style.display = "none";
-        visit_button1.style.display = "none";
-        visit_button2.style.display = "none";
-        button3.style.display = "inline";
+        fightM1.style.display = "none";
+        fightM2.style.display = "none";
+        
         setupStore(); 
-        button3.onclick = () => {
-            showMap();
-        }
+        visitMap.style.display = "inline";
+        visitMap.onclick = () => { showMap(); }
     }
-    visit_button1.onclick = () => { loadScene("lava"); }
-    visit_button2.onclick = () => { loadScene("cave"); }
+    fightM1.onclick = () => { i = getIndex("lava"); loadScene(i); }
+    fightM2.onclick = () => { i = getIndex("cave"); loadScene(i); }
 }
 
 
@@ -309,7 +310,7 @@ attack_button.onclick = () =>
     if(attackClicks == 0) // clicked during tutorial mode
     {
         conv4.style.display = "inline";
-        villainHealth.innerText = "0";
+        villainHealthText.innerText = "0";
     }
     else // clicked outside of tutorial
     {
@@ -324,56 +325,80 @@ attack_button.onclick = () =>
 }
 
 
-let i;
+
+function getIndex(scene)
+{
+    if(scene === "lava")
+    {
+        return 0;
+    }
+    else if(scene === "cave")
+    {
+        return 1;    
+    }
+
+}
+
 // Displays changing stats of current villains throughout gameplay
-function loadScene(scene)
+function loadScene(i)
 {
     attack_button.style.display = "inline";
-    visit_button1.style.display = "none";
-    visit_button2.style.display = "none";
+    fightM1.style.display = "none";
+    fightM2.style.display = "none";
     rightPanel.style.display = "inline";
     hero.style.left = "200px";
     hero.style.top = "500px";
     hero.style.width = "330px";
     hero.style.display = "inline";
-    if(scene === "lava")
+    if(i === 0)
     {
-        i = 0;
         document.body.style.backgroundImage = env[i].url;
         minion2.style.display = "none";
         minion1.style.top = "400px";
         minion1.style.width = "140px";
-
+        minion1.style.display = "inline";
     }
-    else if(scene === "cave")
+    else if(i === 1)
     {
-        i = 1;
         document.body.style.backgroundImage = env[i].url;
         minion1.style.display = "none";
+        minion2.style.display = "inline";
         minion2.style.top = "400px";
         minion2.style.left = "1100px";
         minion2.style.width = "300px";
-        minion2.style.transform = "rotate(0deg)"
+        minion2.style.transform = "rotate(0deg)";
+    }
+  
 
+    visitMap.style.display = "inline";
+    visitMap.onclick = () => {
+        hideBattleScene(i);
+        showMap();
     }
 
-    button1.style.display = "inline";
-    button1.onclick = () => 
+    visitStore.style.display = "inline";
+    visitStore.onclick = () => 
     {
         hideBattleScene(i);
         setupStore();
         message.innerText = "\n\nIf you have gold to give, \nyou're in luck!";
-        button3.style.display = "inline";
-        button3.onclick = () => {
-            showMap();
-        }
+        visitMap.style.display = "inline";
+        visitMap.onclick = () => { showMap(); }
+        returnToFight.style.display = "inline";
+        returnToFight.onclick = () => { 
+            returnToFight.style.display = "none";
+            hideStore();
+            document.body.style.backgroundSize = "1480px";
+            document.body.style.backgroundPositionX = "30%";
+            loadScene(i); 
+        };
         next.style.display = "none";
         minion1.style.display = "none";
     }
 
     let name = env[i].name;
     villainName.innerText = name;
-    villainHealth.innerText = env[i].health;
+    villainHealthText.innerText = env[i].health;
     message.innerText = "\n\nThis is " + name;
 
     next.onclick = () => 
@@ -404,8 +429,6 @@ function hideBattleScene(i)
 }
 
 
-
-
 // When villain attacks player, reduce their health and check if still alive
 function villainAttack(monster_i)
 {
@@ -434,9 +457,9 @@ function reduceEnemyHealth()
     let min = 5;
     let max = env[i].health;
     let reduction = Math.floor(Math.random() * (max - min + 1)) + min;   
-    monsterHealth = Number(villainHealth.innerText) - reduction;
-    villainHealth.innerText = monsterHealth;
-    env[i].health = monsterHealth;
+    let villainHealth = Number(villainHealthText.innerText) - reduction;
+    villainHealthText.innerText = villainHealth;
+    env[i].health = villainHealth;
 }
 
 
@@ -452,6 +475,8 @@ function reducePlayerHealth()
     return playerHealth;
 }
 
+
+// Hide store assets when transitioning back to map and battle
 function hideStore()
 {
     upgrader.style.display = "none";

@@ -28,6 +28,7 @@ button {
 }
 
 #button2 {
+  display: none;
   font-family:fantasy;
   font-size: larger;
   background-color:red;
@@ -40,6 +41,15 @@ button {
   font-family:fantasy;
   font-size: larger;
   background-color:rgb(80, 191, 255);
+  float: right;
+  margin-top: 7px;
+}
+
+#button4 {
+  display: none;
+  font-family:fantasy;
+  font-size: larger;
+  background-color:rgb(237, 30, 23);
   float: right;
   margin-top: 7px;
 }
