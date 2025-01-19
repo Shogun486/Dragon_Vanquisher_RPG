@@ -43,14 +43,15 @@ const rip = document.querySelector("#rip");
 const rightPanel = document.querySelector("#rightPanel");
 let attackClicks = 0; // change to 1 when testing outside of tutorial, else set to 0
 
+//showMap();
 
 // Starting screen
-button1.onclick = goStore;
+button1.onclick = startStoreTutorial;
 button2.onclick = playScene;
 let ctr = 0;
 
 
-// Initial encounter with dragon
+// Initial encounter with dragon (part of tutorial)
 function playScene()
 {
     document.body.style.backgroundImage = "url(./images/dungeon.jpg)";
@@ -105,9 +106,27 @@ function playScene()
 }
 
 
-// Store scene with seller
-function goStore()
+// Store scene with seller (part of tutorial)
+function startStoreTutorial()
 {
+    setupStore();
+    dragon.style.display = "none";
+    fireball.style.display = "none";
+    arrow2.style.display = "none";
+    button1.style.display = "none";
+    button2.style.display = "none";
+    conv1.style.display = "block";
+    next.onclick = storeTour; 
+    next.style.display = "inline";
+    next.style.animation = "fade 8s";
+    message.innerText = "\n This is the village store.\n\nHere, you can recover your health \nand upgrade your sword. \n\nBut remember . . .  paradise comes at a cost.";
+}
+    
+
+
+function setupStore()
+{
+    button1.style.display = "none";
     document.body.style.backgroundImage = "url(./images/store.jpg)";
     document.body.style.backgroundSize = "1320px";
     document.body.style.backgroundPositionY = "-8%";
@@ -115,24 +134,14 @@ function goStore()
     hero.style.width = "300px";
     hero.style.left = "500px";
     hero.style.top = "18px";
-    dragon.style.display = "none";
-    fireball.style.display = "none";
-    arrow2.style.display = "none";
-    button1.style.display = "none";
-    button2.style.display = "none";
     seller.style.display = "inline";
     upgrader.style.display = "block";
     healthPack.style.display = "block";
-    conv1.style.display = "block";
-    next.onclick = setUpStore; 
-    next.style.display = "inline";
-    next.style.animation = "fade 8s";
-    message.innerText = "\n This is the village store.\n\nHere, you can recover your health \nand upgrade your sword. \n\nBut remember . . .  paradise comes at a cost.";
 }
 
 
-// Store scene helper function
-function setUpStore()
+// Store scene helper function (part of tutorial scene)
+function storeTour()
 {   
     next.style.display = "none";
     message.innerText = "\n\n\nUpgrade your weapon!\n\nYou have enough gold!"
@@ -247,7 +256,7 @@ function showMap()
 }
 
 
-// Easily add creatures of your own and any attributes in this array
+// Add creatures and their attributes in this array
 let env = [
     {
         name: "Flamejade",
@@ -266,7 +275,7 @@ let env = [
 ];
 
 
-// Weapon animation
+// Player's weapon animation
 attack_button.onclick = () => 
 {  
     attack_button.style.display = "none";
@@ -320,6 +329,15 @@ function loadScene(scene)
         minion2.style.transform = "rotate(0deg)"
 
     }
+
+    button1.style.display = "inline";
+    button1.onclick = () => 
+    {
+        hideBattleScene(i);
+        setupStore();
+        minion1.style.display = "none";
+    }
+
     let name = env[i].name;
     villainName.innerText = name;
     villainHealth.innerText = env[i].health;
@@ -332,8 +350,30 @@ function loadScene(scene)
         villainAttack(i);
     }
 }
-    
 
+
+// Hides battle scene assets when transitioning to store
+function hideBattleScene(i)
+{
+    rightPanel.style.display = "none";
+    attack_button.style.display = "none";
+    sword.style.display = "none";
+    if(i === 0)
+    {
+        minion1.style.display = "none";
+        lava.style.display = "none";
+    }
+    else if(i === 1)
+    {
+        minion2.style.display = "none";
+        spear.style.display = "none";
+    }
+}
+
+
+
+
+// When villain attacks player, reduce their health and check if still alive
 function villainAttack(monster_i)
 {
     if(monster_i === 0)
@@ -363,6 +403,7 @@ function reduceEnemyHealth()
     let reduction = Math.floor(Math.random() * (max - min + 1)) + min;   
     villainHealth.innerText = Number(villainHealth.innerText) - reduction;
 }
+
 
 // Damage to player varies based on current opponent's level
 function reducePlayerHealth()
