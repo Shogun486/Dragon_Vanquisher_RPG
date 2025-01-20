@@ -1,16 +1,17 @@
 // Player info
 let playerHealth = 100;
 let gold = 50;
+let sword_level = 1;
 
 
 // HTML elements selection 
-const visitStore = document.querySelector("#button1");
-const startTutorial = document.querySelector("#button2");
-const visitMap = document.querySelector("#button3");
-const returnToFight = document.querySelector("#button4");
+const visitStore = document.querySelector("#visit_store_button");
+const startTutorial = document.querySelector("#start_tutorial_button");
+const visitMap = document.querySelector("#visit_map_button");
+const returnToFight = document.querySelector("#return_fight_button");
 const attack_button = document.querySelector("#attack_btn");
-const fightM1 = document.querySelector("#visit_btn1");
-const fightM2 = document.querySelector("#visit_btn2");
+const fightM1 = document.querySelector("#fight_minion1");
+const fightM2 = document.querySelector("#fight_minion2");
 const next = document.querySelector("#next");
 const arrow1 = document.querySelector("#arrow1");
 const arrow2 = document.querySelector("#arrow2");
@@ -21,7 +22,7 @@ const villainHealthText = document.querySelector("#villainHealth");
 const villainName = document.querySelector("#villainName");
 const healthPack = document.querySelector("#healthpack");
 const upgrade_health = document.querySelector("#upgrade_health");
-const weapon_upgrade1 = document.querySelector("#weapon_upgrade1");
+const weapon_upgrade = document.querySelector("#weapon_upgrade");
 const conv1 = document.querySelector("#conv1");
 const conv2 = document.querySelector("#conv2");
 const conv3 = document.querySelector("#conv3");
@@ -43,7 +44,6 @@ const rightPanel = document.querySelector("#rightPanel");
 
 let attackClicks = 0; // change to 1 when testing outside of tutorial, else set to 0
 let ctr = 0;
-
 //showMap();
 
 
@@ -142,6 +142,50 @@ function setupStore()
     seller.style.display = "inline";
     upgrader.style.display = "block";
     healthPack.style.display = "block";
+
+    if(attackClicks > 0)
+    {
+        if(gold < 20)
+            message.innerText = "\nInsufficient gold! \nYou can't buy anything!";
+
+        if(playerHealth < 100 && gold >= 20)
+        {
+            arrow1.style.display = "inline";
+            arrow1.style.left = "535px";
+            arrow1.style.bottom = "175px";
+            upgrade_health.style.display = "inline";
+            upgrade_health.onclick = () => {
+                health = 100;
+                healthText.innerText = health;
+                message.innerText = "\nYou've restored all of your health!";
+                gold -=20;
+                goldText.innerText = gold;
+                upgrade_health.style.display = "none";
+                arrow1.style.display = "none";
+            }
+        }
+        
+        if(gold >= 30)
+        {
+            arrow2.style.display = "inline";
+            arrow2.style.bottom = "100px"; 
+            arrow2.style.left = "800px"; 
+            arrow2.style.height = "160px";
+            arrow2.style.transform = "rotate(-50deg)";
+            weapon_upgrade.style.display = "inline";
+            weapon_upgrade.onclick = () => {
+                message.innerText = "\nSword upgraded to level " + ++sword_level + "!";
+                gold -= 30;
+                goldText.innerText = gold;
+                if(gold < 30)
+                {
+                    weapon_upgrade.style.display = "none";
+                    arrow2.style.display = "none";
+                }
+            }
+        }
+        
+    }
 }
 
 
@@ -150,7 +194,7 @@ function storeTour()
 {   
     next.style.display = "none";
     message.innerText = "\n\n\nUpgrade your weapon!\n\nYou have enough gold!"
-    weapon_upgrade1.style.display = "inline";
+    weapon_upgrade.style.display = "inline";
     arrow2.style.display = "inline";
     arrow2.style.bottom = "650px"; 
     arrow2.style.left = "180px"; 
@@ -162,12 +206,12 @@ function storeTour()
     arrow1.style.height = "160px";
     arrow1.style.transform = "rotate(-50deg)";
 
-    weapon_upgrade1.onclick = () => 
+    weapon_upgrade.onclick = () => 
     {
         gold -= 30;
         goldText.innerText = gold;
-        message.innerText = "\nGold exchanged!\n\nSword upgraded!\n\nNow regain your health.";
-        weapon_upgrade1.style.display = "none";
+        message.innerText = "\nGold exchanged!\n\nSword upgraded to level " + ++sword_level + "!\n\nNow regain your health.";
+        weapon_upgrade.style.display = "none";
         upgrade_health.style.display = "inline";
         conv1.style.display = "none";
         arrow2.style.display = "none";
@@ -225,7 +269,9 @@ function episodeDone()
             dragon.style.display = "none";
             sword.style.display = "none";
             message.innerText = "\n\nYou have defeated Jaris, but . . .\n\nwhat army is he talking about?";
-            villainName.innerText += " (R.I.P.)";
+            gold += 80;
+            goldText.innerText = gold;
+            villainName.innerText += " (R.I.P.) --> Reward: 80 gold";
             ctr++;
         }
         else if(ctr == 1)
@@ -247,14 +293,16 @@ let env = [
         url: "url(./images/lava_chamber.jpg)",
         projectile: "lava",
         health: 70,
-        level: 3
+        level: 3,
+        alive: true
     },
     {
         name: "Wolfman",
         url: "url(./images/skull_cave.jpg)",
         projectile: "a spear",
         health: 90,
-        level: 6
+        level: 6,
+        alive: true
     }
 ];
 
@@ -271,21 +319,35 @@ function showMap()
     hero.style.display = "none";
     rip.style.display = "none";
     conv5.style.display = "none";
-    minion1.style.display = "inline";
-    minion1.style.width = '';
-    minion1.style.right = '';
-    minion1.style.top = '';
-    minion2.style.display = "inline";
-    minion2.style.width = '';
-    minion2.style.left = '';
-    minion2.style.top = '';
-    minion2.style.transform = '';
+
+    if(env[0].alive === false && env[1].alive === false)
+    {
+        message.innerText = "\nChapter 1 complete! \nStay tuned to see how this all unfolds . . ."
+        visitStore.style.display = "none";
+    }
+
+    if(env[0].alive)
+    {
+        minion1.style.display = "inline";
+        minion1.style.width = '';
+        minion1.style.right = '';
+        minion1.style.top = '';
+        fightM1.style.display = "inline";
+    }
+
+    if(env[1].alive)
+    {
+        minion2.style.display = "inline";
+        minion2.style.width = '';
+        minion2.style.left = '';
+        minion2.style.top = '';
+        minion2.style.transform = '';
+        fightM2.style.display = "inline";
+    }
 
 
     next.style.display = "none";
     visitMap.style.display = "none";
-    fightM1.style.display = "inline";
-    fightM2.style.display = "inline";
     visitStore.style.display = "inline";
     visitStore.onclick = () => 
     { 
@@ -379,9 +441,9 @@ function loadScene(i)
     visitStore.style.display = "inline";
     visitStore.onclick = () => 
     {
+        message.innerText = "\n\nIf you have gold to give, \nyou're in luck!";
         hideBattleScene(i);
         setupStore();
-        message.innerText = "\n\nIf you have gold to give, \nyou're in luck!";
         visitMap.style.display = "inline";
         visitMap.onclick = () => { showMap(); }
         returnToFight.style.display = "inline";
@@ -399,7 +461,7 @@ function loadScene(i)
     let name = env[i].name;
     villainName.innerText = name;
     villainHealthText.innerText = env[i].health;
-    message.innerText = "\n\nThis is " + name;
+    message.innerText = "\n\nYou are fighting " + name;
 
     next.onclick = () => 
     {
@@ -443,11 +505,21 @@ function villainAttack(monster_i)
         spear.style.display = "inline";
     }
     
-    villainName.innerText += " threw " + env[i].projectile;
+    villainName.innerText = env[i].name + " threw " + env[i].projectile + "!";
     attack_button.style.display = "inline";
     playerHealth = reducePlayerHealth();
     if(playerHealth <= 0)
-        message.innerText = "Defeated!";
+    {
+        message.innerText = "Defeated! \nClick \"Next\" to return to map.";
+        next.style.display = "inline";
+        hero.style.display = "none";
+        sword.style.display = "none";
+        attack_button.style.display = "none";
+        next.onclick = () => {
+            hideBattleScene(i);
+            showMap();
+        }
+    }
 }
 
 
@@ -456,10 +528,31 @@ function reduceEnemyHealth()
 {
     let min = 5;
     let max = env[i].health;
-    let reduction = Math.floor(Math.random() * (max - min + 1)) + min;   
+    let reduction = Math.floor(Math.random() * (max - min + 1)) + min + sword_level;   
     let villainHealth = Number(villainHealthText.innerText) - reduction;
     villainHealthText.innerText = villainHealth;
     env[i].health = villainHealth;
+
+    let enemyAlive = (villainHealth > 0 ? true : false);
+    let display = "";
+
+    if(enemyAlive)
+    {
+        display = env[i].name + " took damage!";
+    }
+    else
+    {
+        env[i].alive = false;
+        display = env[i].name + " (R.I.P)";
+        message.innerText = "\nYou have defeated " + env[i].name + "!\nClick \"Next\" to return to the map.";
+        next.style.display = "inline";
+        next.onclick = () => {
+            hideBattleScene(i);
+            showMap();
+        }
+    }
+
+    villainName.innerText = display;
 }
 
 
@@ -482,9 +575,11 @@ function hideStore()
     upgrader.style.display = "none";
     seller.style.display = "none";
     healthPack.style.display = "none";
-    weapon_upgrade1.style.display = "none";
+    weapon_upgrade.style.display = "none";
     upgrade_health.style.display = "none";
     document.body.style.backgroundPositionY = "0%";
+    arrow1.style.display = "none";
+    arrow2.style.display = "none";
 }
 
 

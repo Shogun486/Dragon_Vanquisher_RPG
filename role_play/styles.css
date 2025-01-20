@@ -17,7 +17,7 @@ button {
   height: 40px;
 }
 
-#button1 {
+#visit_store_button {
   display: none;
   font-family:fantasy;
   font-size: larger;
@@ -27,7 +27,7 @@ button {
   margin-bottom: 7px;
 }
 
-#button2 {
+#start_tutorial_button {
   display: none;
   font-family:fantasy;
   font-size: larger;
@@ -36,7 +36,7 @@ button {
   margin-top: 7px;
 }
 
-#button3 {
+#visit_map_button {
   display: none;
   font-family:fantasy;
   font-size: larger;
@@ -45,7 +45,7 @@ button {
   margin-top: 7px;
 }
 
-#button4 {
+#return_fight_button {
   display: none;
   font-family:fantasy;
   font-size: larger;
@@ -68,7 +68,7 @@ button {
   cursor: pointer;
 }
 
-#visit_btn1 {
+#fight_minion1 {
   display:none;
   width: auto;
   height: 100px;
@@ -79,11 +79,11 @@ button {
   z-index: -1;
 }
 
-#visit_btn1:hover {
+#fight_minion1:hover {
   cursor: pointer;
 }
 
-#visit_btn2 {
+#fight_minion2 {
   display:none;
   width: auto;
   height: 80px;
@@ -94,7 +94,7 @@ button {
   z-index: 3;
 }
 
-#visit_btn2:hover {
+#fight_minion2:hover {
   cursor: pointer;
 }
 
@@ -183,7 +183,7 @@ button {
   right:200px;
 }
 
-#weapon_upgrade1 {
+#weapon_upgrade {
   display:none;
   width: auto;
   height: 100px;
@@ -192,7 +192,7 @@ button {
   right:500px;
 }
 
-#weapon_upgrade1:hover {
+#weapon_upgrade:hover {
   cursor: pointer;
 }
 
@@ -312,7 +312,7 @@ button {
   text-align: center;
   width: 480px;
   height: 335px;
-  background-color:rgb(29, 91, 76);
+  background-color:#125644;
   margin: 0%;
 }
 
